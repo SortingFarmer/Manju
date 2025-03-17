@@ -1,0 +1,56 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:viewportWidth="512"
+    android:viewportHeight="512"
+    android:width="512dp"
+    android:height="512dp">
+    <path
+        android:pathData="M288 448A32 32 0 0 1 224 448A32 32 0 0 1 288 448Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M288 320A32 32 0 0 1 224 320A32 32 0 0 1 288 320Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M288 192a32 32 0 1 1 -32 -32A32 32 0 0 1 288 192Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M288 64A32 32 0 0 1 224 64A32 32 0 0 1 288 64Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M416 320A32 32 0 0 1 352 320A32 32 0 0 1 416 320Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M416 192A32 32 0 0 1 352 192A32 32 0 0 1 416 192Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M416 64A32 32 0 0 1 352 64A32 32 0 0 1 416 64Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M160 320A32 32 0 0 1 96 320A32 32 0 0 1 160 320Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M160 192A32 32 0 0 1 96 192A32 32 0 0 1 160 192Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+    <path
+        android:pathData="M160 64A32 32 0 0 1 96 64A32 32 0 0 1 160 64Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10" />
+</vector>
