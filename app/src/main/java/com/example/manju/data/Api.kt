@@ -8,7 +8,7 @@ import retrofit2.http.Path
 
 interface Api {
 
-    @GET("manga")
+    @GET("/manga")
     suspend fun getMangaList(
         @Query(value = "includes[]") includes: List<String>? = listOf("author", "artist", "cover_art"),
         @Query(value = "limit") limit: Int? = 10,
@@ -43,7 +43,7 @@ interface Api {
         @Query(value = "group") group: String? = null,
     ): Call<Mangas>
 
-    @GET("manga/{id}")
+    @GET("/manga/{id}")
     suspend fun getMangaDetails(
         @Path(value = "id") id: String,
         @Query(value = "includes[]") includes: List<String>? = listOf("author", "artist", "cover_art"),

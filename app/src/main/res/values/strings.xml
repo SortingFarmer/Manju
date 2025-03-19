@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Manju</string>
-    <string name="appwidget_text">No</string>
+    <string name="app_name" translatable="false">Manju</string>
     <string name="no_description_available">The discription is not currently available.</string>
+    <string name="no_title_available">Title not available.</string>
 </resources>

@@ -4,7 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL = "https://api.mangadex.org/"
+    private const val BASE_URL = "https://api.mangadex.org"
+    public const val IMAGE_URL = "https://uploads.mangadex.org"
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
