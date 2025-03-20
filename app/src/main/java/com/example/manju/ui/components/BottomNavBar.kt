@@ -69,7 +69,7 @@ val items = listOf(
         title = "Feed",
         selectedIcon = R.drawable.bookmarks,
         unselectedIcon = R.drawable.bookmarks_outline,
-        badgeCount = 5
+        badgeCount = getUnreadFeedCount()
     ),
     BottomNavigationItem(
         route = "search",

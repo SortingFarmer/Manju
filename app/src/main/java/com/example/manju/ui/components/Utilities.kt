@@ -9,17 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import coil.transform.CircleCropTransformation
-import com.example.manju.R
 import com.example.manju.data.manga.AltTitle
 import com.example.manju.data.manga.Attributes
 import com.example.manju.data.manga.AttributesX
@@ -32,6 +29,7 @@ import com.example.manju.data.manga.Name
 import com.example.manju.data.manga.Relationship
 import com.example.manju.data.manga.Tag
 import com.example.manju.data.manga.Title
+import kotlin.math.roundToInt
 
 @Composable
 fun DisplayImage(
@@ -498,5 +496,8 @@ val shotgunBoy = Manga(
             related = "sequel"
         )
     )
-
 )
+
+fun getUnreadFeedCount(): Int {
+    return (Math.random() * 100).roundToInt()
+}
