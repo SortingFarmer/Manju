@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.example.manju.R
-import com.example.manju.data.BottomNavigationItem
+import com.example.manju.dataClass.BottomNavigationItem
 
 @Composable
 fun NavBar(navController: NavHostController, navBackStackEntry: NavBackStackEntry?) {
@@ -65,14 +65,14 @@ val items = listOf(
         unselectedIcon = R.drawable.home_outline
     ),
     BottomNavigationItem(
-        route = "feed",
+        route = "updates",
         title = "Feed",
         selectedIcon = R.drawable.bookmarks,
         unselectedIcon = R.drawable.bookmarks_outline,
         badgeCount = getUnreadFeedCount()
     ),
     BottomNavigationItem(
-        route = "search",
+        route = "advanced_search",
         title = "Search",
         selectedIcon = R.drawable.search,
         unselectedIcon = R.drawable.search_outline

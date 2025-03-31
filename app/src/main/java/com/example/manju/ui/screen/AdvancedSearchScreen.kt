@@ -12,13 +12,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun SearchScreen(navController: NavController) {
+fun AdvancedSearchScreen(navController: NavController) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier.padding(16.dp)
     ) {
         item(span = { GridItemSpan(2) }) {
-            Text(text = "Search")
+            Text(text = "Advanced Search")
         }
         items(
             count = 50,

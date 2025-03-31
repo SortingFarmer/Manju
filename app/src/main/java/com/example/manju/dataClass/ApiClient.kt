@@ -1,4 +1,4 @@
-package com.example.manju.data
+package com.example.manju.dataClass
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

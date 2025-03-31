@@ -22,13 +22,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.manju.ui.components.NavBar
 import com.example.manju.ui.components.TopBar
-import com.example.manju.ui.screen.FeedScreen
+import com.example.manju.ui.screen.UpdatesScreen
 import com.example.manju.ui.screen.HomeScreen
 import com.example.manju.ui.screen.LibraryScreen
 import com.example.manju.ui.screen.MangaScreen
-import com.example.manju.ui.screen.SearchScreen
+import com.example.manju.ui.screen.AdvancedSearchScreen
 import com.example.manju.ui.screen.SettingsScreen
 import com.example.manju.ui.screen.SocialScreen
+import com.example.manju.ui.screen.sub.AboutScreen
 import com.example.manju.ui.theme.ManjuTheme
 
 class MainActivity : ComponentActivity() {
@@ -63,7 +64,7 @@ class MainActivity : ComponentActivity() {
                         },
                         bottomBar = {
                             when (navBackStackEntry?.destination?.route) {
-                                "home", "feed", "search", "social", "library" -> {
+                                "home", "updates", "advanced_search", "social", "library" -> {
                                     NavBar(navController, navBackStackEntry)
                                 }
                             }
@@ -97,10 +98,28 @@ fun Navigation(
         startDestination = "home"
     ) {
 
+        //Main screens
         composable(route = "home") {
             HomeScreen(navController)
         }
 
+        composable(route = "updates") {
+            UpdatesScreen(navController)
+        }
+
+        composable(route = "advanced_search") {
+            AdvancedSearchScreen(navController)
+        }
+
+        composable(route = "social") {
+            SocialScreen(navController)
+        }
+
+        composable(route = "library") {
+            LibraryScreen(navController)
+        }
+
+        //Manga screens
         composable(
             route = "title/{id}",
             arguments = listOf(
@@ -112,22 +131,7 @@ fun Navigation(
             MangaScreen(navController, backStackEntry.arguments?.getString("id"))
         }
 
-        composable(route = "feed") {
-            FeedScreen(navController)
-        }
-
-        composable(route = "search") {
-            SearchScreen(navController)
-        }
-
-        composable(route = "social") {
-            SocialScreen(navController)
-        }
-
-        composable(route = "library") {
-            LibraryScreen(navController)
-        }
-
+        //Secondary screens
         composable(route = "settings") {
             SettingsScreen(navController)
         }
@@ -145,7 +149,7 @@ fun Navigation(
         }
 
         composable(route = "about") {
-            Text("About")
+            AboutScreen()
         }
     }
 }

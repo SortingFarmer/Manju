@@ -5,6 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun FeedScreen(navController: NavController) {
-    Text(text = "Feed")
+fun UpdatesScreen(navController: NavController) {
+    Text(text = "Updates")
 }

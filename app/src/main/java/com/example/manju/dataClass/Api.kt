@@ -1,6 +1,6 @@
-package com.example.manju.data
+package com.example.manju.dataClass
 
-import com.example.manju.data.manga.Mangas
+import com.example.manju.dataClass.manga.Mangas
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

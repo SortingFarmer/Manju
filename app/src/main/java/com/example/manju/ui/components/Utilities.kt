@@ -17,18 +17,18 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import coil.transform.CircleCropTransformation
-import com.example.manju.data.manga.AltTitle
-import com.example.manju.data.manga.Attributes
-import com.example.manju.data.manga.AttributesX
-import com.example.manju.data.manga.AttributesXX
-import com.example.manju.data.manga.Biography
-import com.example.manju.data.manga.Description
-import com.example.manju.data.manga.Links
-import com.example.manju.data.manga.Manga
-import com.example.manju.data.manga.Name
-import com.example.manju.data.manga.Relationship
-import com.example.manju.data.manga.Tag
-import com.example.manju.data.manga.Title
+import com.example.manju.dataClass.manga.AltTitle
+import com.example.manju.dataClass.manga.Attributes
+import com.example.manju.dataClass.manga.AttributesX
+import com.example.manju.dataClass.manga.AttributesXX
+import com.example.manju.dataClass.manga.Biography
+import com.example.manju.dataClass.manga.Description
+import com.example.manju.dataClass.manga.Links
+import com.example.manju.dataClass.manga.Manga
+import com.example.manju.dataClass.manga.Name
+import com.example.manju.dataClass.manga.Relationship
+import com.example.manju.dataClass.manga.Tag
+import com.example.manju.dataClass.manga.Title
 import kotlin.math.roundToInt
 
 @Composable

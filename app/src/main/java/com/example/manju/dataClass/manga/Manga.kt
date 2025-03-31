@@ -1,4 +1,4 @@
-package com.example.manju.data.manga
+package com.example.manju.dataClass.manga
 
 data class Manga(
     val attributes: Attributes,

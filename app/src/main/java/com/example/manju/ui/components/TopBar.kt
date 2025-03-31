@@ -30,7 +30,7 @@ fun TopBar(navController: NavHostController, showBackArrow: Boolean = false, cur
             Text(
                 text = if (showBackArrow) currentRoute?.split('/')[0]?.replaceFirstChar {
                     it.uppercase()
-                } ?: "Manju" else "Manju",
+                }?.replace("_", " ") ?: "Manju" else "Manju",
                 fontSize = 24.sp
             )
         },

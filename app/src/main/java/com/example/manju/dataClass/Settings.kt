@@ -1,4 +1,4 @@
-package com.example.manju.data
+package com.example.manju.dataClass
 
 data class Settings(
     val title: String,

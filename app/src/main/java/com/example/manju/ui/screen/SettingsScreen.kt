@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.manju.R
-import com.example.manju.data.Settings
+import com.example.manju.dataClass.Settings
 
 @Composable
 fun SettingsScreen(navController: NavController) {
