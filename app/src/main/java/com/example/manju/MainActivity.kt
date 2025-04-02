@@ -7,12 +7,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -25,13 +29,14 @@ import com.example.manju.ui.components.TopBar
 import com.example.manju.ui.screen.UpdatesScreen
 import com.example.manju.ui.screen.HomeScreen
 import com.example.manju.ui.screen.LibraryScreen
-import com.example.manju.ui.screen.MangaScreen
+import com.example.manju.ui.screen.sub.MangaScreen
 import com.example.manju.ui.screen.AdvancedSearchScreen
 import com.example.manju.ui.screen.SettingsScreen
 import com.example.manju.ui.screen.SocialScreen
-import com.example.manju.ui.screen.sub.AboutScreen
+import com.example.manju.ui.screen.sub.settings.AboutScreen
 import com.example.manju.ui.theme.ManjuTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,28 +44,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ManjuTheme {
+                val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     var showBackArrow = true
 
-                    when (navBackStackEntry?.destination?.route) {
+                    showBackArrow = when (navBackStackEntry?.destination?.route) {
                         "home" -> {
-                            showBackArrow = false
+                            false
                         }
 
                         else -> {
-                            showBackArrow = true
+                            true
                         }
                     }
 
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                         topBar = {
-                            TopBar(navController, showBackArrow, navBackStackEntry?.destination?.route)
+                            TopBar(navController, scrollBehavior, showBackArrow, navBackStackEntry?.destination?.route)
                         },
                         bottomBar = {
                             when (navBackStackEntry?.destination?.route) {
@@ -128,7 +134,7 @@ fun Navigation(
                 }
             )
         ) { backStackEntry ->
-            MangaScreen(navController, backStackEntry.arguments?.getString("id"))
+            MangaScreen(navController, backStackEntry.arguments?.getString("id").toString())
         }
 
         //Secondary screens

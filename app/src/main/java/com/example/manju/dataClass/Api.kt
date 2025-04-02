@@ -1,7 +1,7 @@
 package com.example.manju.dataClass
 
-import com.example.manju.dataClass.manga.Mangas
-import retrofit2.Call
+import com.example.manju.dataClass.apiResult.GET.GetManga
+import com.example.manju.dataClass.apiResult.GET.GetMangas
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Path
@@ -9,7 +9,7 @@ import retrofit2.http.Path
 interface Api {
 
     @GET("/manga")
-    suspend fun getMangaList(
+    suspend fun getManga(
         @Query(value = "includes[]") includes: List<String>? = listOf("author", "artist", "cover_art"),
         @Query(value = "limit") limit: Int? = 10,
         @Query(value = "offset") offset: Int? = 0,
@@ -41,11 +41,12 @@ interface Api {
         @Query(value = "order[rating]") orderRating: String? = null,
         @Query(value = "hasAvailableChapters") hasAvailableChapters: Boolean? = null,
         @Query(value = "group") group: String? = null,
-    ): Call<Mangas>
+    ): GetMangas
 
     @GET("/manga/{id}")
-    suspend fun getMangaDetails(
+    suspend fun getMangaById(
         @Path(value = "id") id: String,
         @Query(value = "includes[]") includes: List<String>? = listOf("author", "artist", "cover_art"),
-    ): Call<Mangas>
+    ): GetManga
+
 }

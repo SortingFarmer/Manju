@@ -63,7 +63,7 @@ fun MangaImageCard(
             text = manga.attributes.title.en ?: stringResource(R.string.no_title_available),
             modifier = Modifier
                 .padding(10.dp)
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.CenterHorizontally),
         )
     }
 }

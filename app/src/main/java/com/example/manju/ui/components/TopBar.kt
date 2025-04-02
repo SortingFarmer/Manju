@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,10 +23,14 @@ import com.example.manju.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(navController: NavHostController, showBackArrow: Boolean = false, currentRoute: String?) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-
+fun TopBar(
+    navController: NavHostController,
+    scrollBehavior: TopAppBarScrollBehavior,
+    showBackArrow: Boolean = false,
+    currentRoute: String?
+) {
     TopAppBar(
+        scrollBehavior = scrollBehavior,
         title = {
             Text(
                 text = if (showBackArrow) currentRoute?.split('/')[0]?.replaceFirstChar {
@@ -81,16 +86,20 @@ fun TopBar(navController: NavHostController, showBackArrow: Boolean = false, cur
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(widthDp = 400)
 @Composable
 fun TopBarPreviewNoBackArrow() {
     val navController = NavHostController(LocalContext.current)
-    TopBar(navController, false, "Home")
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    TopBar(navController, scrollBehavior, false, "Home")
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(widthDp = 400)
 @Composable
 fun TopAppPreviewBackArrow() {
     val navController = NavHostController(LocalContext.current)
-    TopBar(navController, true, "Home")
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    TopBar(navController, scrollBehavior, true, "Home")
 }

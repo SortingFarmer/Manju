@@ -38,7 +38,6 @@ fun DisplayImage(
     contentDescription: String? = null,
     circleCrop: Boolean = false
 ) {
-    Log.d("ImageUrl", imageUrl)
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(imageUrl)
