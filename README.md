@@ -29,7 +29,13 @@ If you got any questions, [join our Discord server](https://discord.gg/sk5tBM9nx
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sortingfarmer/manju&type=Date)](https://www.star-history.com/#sortingfarmer/manju&Date)
+<a href="https://www.star-history.com/#sortingfarmer/manju&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sortingfarmer/manju&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sortingfarmer/manju&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sortingfarmer/manju&type=Date" />
+ </picture>
+</a>
 
 ## Notice
 Date provided by [Mangadex](https://mangadex.org)
