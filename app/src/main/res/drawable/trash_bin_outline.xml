@@ -1,30 +1,30 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
-    android:viewportWidth="512"
-    android:viewportHeight="512"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="512dp"
-    android:height="512dp">
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
     <path
         android:pathData="M432 144L403.33 419.74A32 32 0 0 1 371.55 448H140.46a32 32 0 0 1 -31.78 -28.26L80 144"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:pathData="M48 64H464A16 16 0 0 1 480 80V128A16 16 0 0 1 464 144H48A16 16 0 0 1 32 128V80A16 16 0 0 1 48 64Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:pathData="M312 240L200 352"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:pathData="M312 352L200 240"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
 </vector>

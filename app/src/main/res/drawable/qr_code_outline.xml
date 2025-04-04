@@ -1,48 +1,48 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
-    android:viewportWidth="512"
-    android:viewportHeight="512"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="512dp"
-    android:height="512dp">
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
     <path
-        android:pathData="M344 336H408A8 8 0 0 1 416 344V408A8 8 0 0 1 408 416H344A8 8 0 0 1 336 408V344A8 8 0 0 1 344 336Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M344 336H408A8 8 0 0 1 416 344V408A8 8 0 0 1 408 416H344A8 8 0 0 1 336 408V344A8 8 0 0 1 344 336Z" />
     <path
-        android:pathData="M280 272H328A8 8 0 0 1 336 280V328A8 8 0 0 1 328 336H280A8 8 0 0 1 272 328V280A8 8 0 0 1 280 272Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M280 272H328A8 8 0 0 1 336 280V328A8 8 0 0 1 328 336H280A8 8 0 0 1 272 328V280A8 8 0 0 1 280 272Z" />
     <path
-        android:pathData="M424 416H472A8 8 0 0 1 480 424V472A8 8 0 0 1 472 480H424A8 8 0 0 1 416 472V424A8 8 0 0 1 424 416Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M424 416H472A8 8 0 0 1 480 424V472A8 8 0 0 1 472 480H424A8 8 0 0 1 416 472V424A8 8 0 0 1 424 416Z" />
     <path
-        android:pathData="M440 272H472A8 8 0 0 1 480 280V312A8 8 0 0 1 472 320H440A8 8 0 0 1 432 312V280A8 8 0 0 1 440 272Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M440 272H472A8 8 0 0 1 480 280V312A8 8 0 0 1 472 320H440A8 8 0 0 1 432 312V280A8 8 0 0 1 440 272Z" />
     <path
-        android:pathData="M280 432H312A8 8 0 0 1 320 440V472A8 8 0 0 1 312 480H280A8 8 0 0 1 272 472V440A8 8 0 0 1 280 432Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M280 432H312A8 8 0 0 1 320 440V472A8 8 0 0 1 312 480H280A8 8 0 0 1 272 472V440A8 8 0 0 1 280 432Z" />
     <path
-        android:pathData="M344 96H408A8 8 0 0 1 416 104V168A8 8 0 0 1 408 176H344A8 8 0 0 1 336 168V104A8 8 0 0 1 344 96Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M344 96H408A8 8 0 0 1 416 104V168A8 8 0 0 1 408 176H344A8 8 0 0 1 336 168V104A8 8 0 0 1 344 96Z" />
     <path
         android:pathData="M304 48H448A16 16 0 0 1 464 64V208A16 16 0 0 1 448 224H304A16 16 0 0 1 288 208V64A16 16 0 0 1 304 48Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:pathData="M104 96H168A8 8 0 0 1 176 104V168A8 8 0 0 1 168 176H104A8 8 0 0 1 96 168V104A8 8 0 0 1 104 96Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M104 96H168A8 8 0 0 1 176 104V168A8 8 0 0 1 168 176H104A8 8 0 0 1 96 168V104A8 8 0 0 1 104 96Z" />
     <path
         android:pathData="M64 48H208A16 16 0 0 1 224 64V208A16 16 0 0 1 208 224H64A16 16 0 0 1 48 208V64A16 16 0 0 1 64 48Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:pathData="M104 336H168A8 8 0 0 1 176 344V408A8 8 0 0 1 168 416H104A8 8 0 0 1 96 408V344A8 8 0 0 1 104 336Z"
-        android:fillColor="#000000" />
+        android:fillColor="#000000"
+        android:pathData="M104 336H168A8 8 0 0 1 176 344V408A8 8 0 0 1 168 416H104A8 8 0 0 1 96 408V344A8 8 0 0 1 104 336Z" />
     <path
         android:pathData="M64 288H208A16 16 0 0 1 224 304V448A16 16 0 0 1 208 464H64A16 16 0 0 1 48 448V304A16 16 0 0 1 64 288Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
 </vector>

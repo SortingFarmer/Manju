@@ -1,22 +1,22 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
-    android:viewportWidth="512"
-    android:viewportHeight="512"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="512dp"
-    android:height="512dp">
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
     <group
         android:rotation="-90"
         android:translateY="512">
         <path
             android:pathData="M176 16H336A48 48 0 0 1 384 64V448A48 48 0 0 1 336 496H176A48 48 0 0 1 128 448V64A48 48 0 0 1 176 16Z"
-            android:strokeColor="#000000"
             android:strokeWidth="32"
+            android:strokeColor="#000000"
             android:strokeLineCap="round"
             android:strokeLineJoin="round" />
     </group>
     <path
         android:pathData="M16 336V312a8 8 0 0 1 8 -8h0a16 16 0 0 0 16 -16V224a16 16 0 0 0 -16 -16h0a8 8 0 0 1 -8 -8V176"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
 </vector>

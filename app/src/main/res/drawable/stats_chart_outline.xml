@@ -1,30 +1,30 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
-    android:viewportWidth="512"
-    android:viewportHeight="512"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="512dp"
-    android:height="512dp">
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
     <path
         android:pathData="M72 320H104A8 8 0 0 1 112 328V472A8 8 0 0 1 104 480H72A8 8 0 0 1 64 472V328A8 8 0 0 1 72 320Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:pathData="M296 224H328A8 8 0 0 1 336 232V472A8 8 0 0 1 328 480H296A8 8 0 0 1 288 472V232A8 8 0 0 1 296 224Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:pathData="M408 112H440A8 8 0 0 1 448 120V472A8 8 0 0 1 440 480H408A8 8 0 0 1 400 472V120A8 8 0 0 1 408 112Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
         android:pathData="M184 32H216A8 8 0 0 1 224 40V472A8 8 0 0 1 216 480H184A8 8 0 0 1 176 472V40A8 8 0 0 1 184 32Z"
-        android:strokeColor="#000000"
         android:strokeWidth="32"
+        android:strokeColor="#000000"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
 </vector>

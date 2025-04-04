@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.manju"
+    namespace = "de.sortingfarmer.manju"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.manju"
+        applicationId = "de.sortingfarmer.manju"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
