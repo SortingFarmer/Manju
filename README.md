@@ -29,16 +29,16 @@ If you got any questions, [join our Discord server](https://discord.gg/sk5tBM9nx
 
 ## Star History
 
-<a href="https://www.star-history.com/#sortingfarmer/manju&Date">
+<a href="https://www.star-history.com/#SortingFarmer/Manju&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sortingfarmer/manju&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sortingfarmer/manju&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sortingfarmer/manju&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=SortingFarmer/Manju&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=SortingFarmer/Manju&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=SortingFarmer/Manju&type=Date" />
  </picture>
 </a>
 
 ## Notice
-Date provided by [Mangadex](https://mangadex.org)
+Data provided by [Mangadex](https://mangadex.org)
 We respect Mangadex, Scanlators and authors for their work.
 
 This app uses icons from [Ionicons](https://ionic.io/ionicons).
