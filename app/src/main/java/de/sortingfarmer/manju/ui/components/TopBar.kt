@@ -1,16 +1,11 @@
 package de.sortingfarmer.manju.ui.components
 
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,12 +20,10 @@ import de.sortingfarmer.manju.R
 @Composable
 fun TopBar(
     navController: NavHostController,
-    scrollBehavior: TopAppBarScrollBehavior,
     showBackArrow: Boolean = false,
     currentRoute: String?,
 ) {
     TopAppBar(
-        scrollBehavior = scrollBehavior,
         title = {
             Text(
                 text = if (showBackArrow) currentRoute?.split('/')[0]?.replaceFirstChar {
@@ -55,34 +48,29 @@ fun TopBar(
             }
         },
         actions = {
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.search_outline),
-                    contentDescription = "Search",
-                    modifier = Modifier.width(24.dp)
-                )
+            if (currentRoute != "advanced_search") {
+                IconButton(
+                    onClick = {}
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.search_outline),
+                        contentDescription = "Search",
+                        modifier = Modifier.width(24.dp)
+                    )
+                }
             }
             IconButton(
                 onClick = {
                     navController.navigate("settings")
                 }
             ) {
-                BadgedBox(
-                    badge = {
-                        Badge()
-                    }
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.settings_outline),
-                        contentDescription = "Settings",
-                        modifier = Modifier.width(24.dp)
-                    )
-                }
+                Icon(
+                    painter = painterResource(id = R.drawable.settings_outline),
+                    contentDescription = "Settings",
+                    modifier = Modifier.width(24.dp)
+                )
             }
         },
-        modifier = Modifier,
     )
 }
 
@@ -91,8 +79,15 @@ fun TopBar(
 @Composable
 fun TopBarPreviewNoBackArrow() {
     val navController = NavHostController(LocalContext.current)
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-    TopBar(navController, scrollBehavior, false, "Home")
+    TopBar(navController, false, "Home")
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(widthDp = 400)
+@Composable
+fun TopBarPreviewNoSearchArrow() {
+    val navController = NavHostController(LocalContext.current)
+    TopBar(navController, false, "advanced_search")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -100,6 +95,5 @@ fun TopBarPreviewNoBackArrow() {
 @Composable
 fun TopAppPreviewBackArrow() {
     val navController = NavHostController(LocalContext.current)
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-    TopBar(navController, scrollBehavior, true, "Home")
+    TopBar(navController, true, "Home")
 }

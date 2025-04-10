@@ -11,12 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -45,12 +42,9 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             ManjuTheme {
-                val scrollBehavior =
-                    TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
                 Surface(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .nestedScroll(scrollBehavior.nestedScrollConnection),
+                        .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
@@ -72,7 +66,6 @@ class MainActivity : ComponentActivity() {
                         topBar = {
                             TopBar(
                                 navController,
-                                scrollBehavior,
                                 showBackArrow,
                                 navBackStackEntry?.destination?.route
                             )
