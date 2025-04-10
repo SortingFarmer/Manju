@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="de.sortingfarmer.manju" />
+                  <option name="mobileSdkAppId" value="1:685383207106:android:cee6518dd9ec667eee135b" />
+                  <option name="projectId" value="manju-app" />
+                  <option name="projectNumber" value="685383207106" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

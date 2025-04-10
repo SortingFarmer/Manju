@@ -2,4 +2,9 @@
     <string name="app_name" translatable="false">Manju</string>
     <string name="no_description_available">The discription is currently not available.</string>
     <string name="no_title_available">The title is currently not available.</string>
+    <string name="rating">Rating</string>
+    <string name="follows">Follows</string>
+    <string name="views">Views</string>
+    <string name="comments">Comments</string>
+    <string name="no_image_available">The cover is currently not available.</string>
 </resources>

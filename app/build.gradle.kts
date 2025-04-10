@@ -1,7 +1,15 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    //google analytics
+    id("com.google.gms.google-services")
+
+    //openapi
+    alias(libs.plugins.openApi.generator)
 }
 
 android {
@@ -13,7 +21,7 @@ android {
         minSdk = 28
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,7 +72,42 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.okhttp)
+    implementation(libs.converter.scalars)
+    implementation(libs.moshi)
+
 
     //coil
     implementation(libs.coil.compose)
+
+    //Google firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+}
+
+openApiGenerate {
+    skipValidateSpec.set(true)
+    generatorName.set("kotlin")
+    packageName.set("de.sortingfarmer.manju.openapi")
+    generateApiTests.set(false)
+    generateModelTests.set(false)
+    library.set("jvm-retrofit2")
+    inputSpec.set("$rootDir/openapi/api.yaml")
+    configOptions.set(
+        mapOf(
+            "serializationLibrary" to "gson",
+            "useCoroutines" to "true",
+        )
+    )
+}
+
+kotlin {
+    sourceSets {
+        main {
+            kotlin.srcDir("${layout.buildDirectory.get()}/generate-resources/main/src")
+        }
+    }
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    dependsOn("openApiGenerate")
 }
