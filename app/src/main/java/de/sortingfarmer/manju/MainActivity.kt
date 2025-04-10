@@ -24,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import de.sortingfarmer.manju.ui.theme.ManjuTheme
 import de.sortingfarmer.manju.ui.components.NavBar
 import de.sortingfarmer.manju.ui.components.TopBar
 import de.sortingfarmer.manju.ui.screen.AdvancedSearchScreen
@@ -34,7 +35,6 @@ import de.sortingfarmer.manju.ui.screen.SocialScreen
 import de.sortingfarmer.manju.ui.screen.UpdatesScreen
 import de.sortingfarmer.manju.ui.screen.sub.MangaScreen
 import de.sortingfarmer.manju.ui.screen.sub.settings.AboutScreen
-import de.sortingfarmer.manju.ui.theme.ManjuTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
@@ -43,6 +43,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             ManjuTheme {
                 val scrollBehavior =
                     TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
