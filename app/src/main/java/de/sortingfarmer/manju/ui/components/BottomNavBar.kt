@@ -15,6 +15,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import de.sortingfarmer.manju.R
 import de.sortingfarmer.manju.dataClass.BottomNavigationItem
+import kotlin.random.Random
 
 @Composable
 fun NavBar(navController: NavHostController, navBackStackEntry: NavBackStackEntry?) {
@@ -90,3 +91,7 @@ val items = listOf(
         unselectedIcon = R.drawable.library_outline
     )
 )
+
+fun getUnreadFeedCount(): Int {
+    return Random.nextInt(1, 101)
+}

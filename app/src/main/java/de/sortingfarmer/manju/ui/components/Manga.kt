@@ -1,5 +1,7 @@
 package de.sortingfarmer.manju.ui.components
 
+import DisplayImage
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -32,19 +34,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.sortingfarmer.manju.R
-import de.sortingfarmer.manju.apiCalls.ApiClient
-import de.sortingfarmer.manju.dataClass.manga.Manga
-import de.sortingfarmer.manju.dataClass.manga.Tag
+import de.sortingfarmer.manju.openapi.models.Manga
+import de.sortingfarmer.manju.openapi.models.Tag
+import de.sortingfarmer.manju.openapi.models.TagAttributes
+import testManga
 
 @Composable
 fun MangaImageCard(
     manga: Manga,
     onClick: () -> Unit,
 ) {
-    val url = manga.relationships.find {
+    val url = manga.relationships?.find {
         it.type == "cover_art"
-    }?.attributes?.fileName?.let {
-        ApiClient.IMAGE_URL + "/covers/${manga.id}/$it"
+    }?.attributes?.fileName.let {
+        "https://uploads.mangadex.org/covers/${manga.id}/${it}"
     }
 
     Card(
@@ -59,11 +62,22 @@ fun MangaImageCard(
                 .height(200.dp)
                 .padding(5.dp)
                 .clip(RoundedCornerShape(5.dp)),
-            contentDescription = manga.attributes.title.en
-                ?: stringResource(R.string.no_title_available)
+            contentDescription = manga.attributes?.title?.get("en")
+                ?: stringResource(R.string.no_title_available),
+            onError = {
+                Image(
+                    painter = painterResource(R.drawable.coverplaceholder),
+                    contentDescription = stringResource(R.string.no_image_available),
+                    modifier = Modifier
+                        .width(((200 / 3) * 2).dp)
+                        .height(200.dp)
+                        .padding(5.dp)
+                        .clip(RoundedCornerShape(5.dp)),
+                )
+            }
         )
         Text(
-            text = manga.attributes.title.en ?: stringResource(R.string.no_title_available),
+            text = manga.attributes?.title?.get("en") ?: stringResource(R.string.no_title_available),
             modifier = Modifier
                 .padding(10.dp)
                 .align(Alignment.CenterHorizontally),
@@ -77,11 +91,12 @@ fun MangaTextCard(
     onClick: () -> Unit,
 ) {
 
-    val url = manga.relationships.find {
+    val url = manga.relationships?.find {
         it.type == "cover_art"
-    }?.attributes?.fileName?.let {
-        ApiClient.IMAGE_URL + "/covers/${manga.id}/$it"
+    }?.attributes?.fileName.let {
+        "https://uploads.mangadex.org/covers/${manga.id}/${it}"
     }
+    Log.d("MangaTextCard url", url.toString())
 
     val iconSize = 20
     val imageSize = 125
@@ -98,12 +113,23 @@ fun MangaTextCard(
                     .height(imageSize.dp)
                     .padding(5.dp)
                     .clip(RoundedCornerShape(5.dp)),
-                contentDescription = manga.attributes.title.en
-                    ?: stringResource(R.string.no_title_available)
+                contentDescription = manga.attributes?.title?.get("en")
+                    ?: stringResource(R.string.no_title_available),
+                onError = {
+                    Image(
+                        painter = painterResource(R.drawable.coverplaceholder),
+                        contentDescription = stringResource(R.string.no_image_available),
+                        modifier = Modifier
+                            .width(((imageSize / 3) * 2).dp)
+                            .height(imageSize.dp)
+                            .padding(5.dp)
+                            .clip(RoundedCornerShape(5.dp)),
+                    )
+                }
             )
             Column {
                 Text(
-                    text = manga.attributes.title.en ?: stringResource(R.string.no_title_available),
+                    text = manga.attributes?.title?.get("en") ?: stringResource(R.string.no_title_available),
                     modifier = Modifier
                         .padding(5.dp),
                     fontWeight = FontWeight.ExtraBold,
@@ -119,7 +145,7 @@ fun MangaTextCard(
                     Row {
                         Image(
                             painter = painterResource(R.drawable.star_outline),
-                            contentDescription = "Rating",
+                            contentDescription = stringResource(R.string.rating),
                             modifier = Modifier
                                 .size(iconSize.dp)
                                 .padding(2.dp),
@@ -138,7 +164,7 @@ fun MangaTextCard(
                     Row {
                         Image(
                             painter = painterResource(R.drawable.bookmark_outline),
-                            contentDescription = "Follows",
+                            contentDescription = stringResource(R.string.follows),
                             modifier = Modifier
                                 .size(iconSize.dp)
                                 .padding(2.dp),
@@ -157,7 +183,7 @@ fun MangaTextCard(
                     Row {
                         Image(
                             painter = painterResource(R.drawable.eye_outline),
-                            contentDescription = "Views",
+                            contentDescription = stringResource(R.string.views),
                             modifier = Modifier
                                 .size(iconSize.dp)
                                 .padding(2.dp),
@@ -175,7 +201,7 @@ fun MangaTextCard(
                     Row {
                         Image(
                             painter = painterResource(R.drawable.chatbox_outline),
-                            contentDescription = "Comments",
+                            contentDescription = stringResource(R.string.comments),
                             modifier = Modifier
                                 .size(iconSize.dp)
                                 .padding(2.dp),
@@ -193,7 +219,7 @@ fun MangaTextCard(
             }
         }
         Text(
-            text = manga.attributes.description?.en
+            text = manga.attributes?.description?.get("en")
                 ?: stringResource(R.string.no_description_available),
             modifier = Modifier.padding(5.dp),
         )
@@ -210,7 +236,7 @@ fun TagRow(manga: Manga) {
             .horizontalScroll(rememberScrollState()), // Add horizontal scroll
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        manga.attributes.tags.forEach { tag ->
+        manga.attributes?.tags?.forEach { tag ->
             TagCard(tag = tag)
         }
     }
@@ -228,7 +254,7 @@ fun TagCard(
         modifier = Modifier.clickable(onClick = { onClick() })
     ) {
         Text(
-            text = tag.attributes.name.en,
+            text = tag.attributes?.name?.get("en") ?: "",
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(5.dp)
@@ -239,17 +265,17 @@ fun TagCard(
 @Preview(showBackground = true)
 @Composable
 fun MangaImageCardPreview() {
-    MangaImageCard(shotgunBoy) {}
+    MangaImageCard(testManga) {}
 }
 
 @Preview(showBackground = true)
 @Composable
 fun MangaTextCardPreview() {
-    MangaTextCard(shotgunBoy) {}
+    MangaTextCard(testManga) {}
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TagCardPreview() {
-    TagCard(shotgunBoy.attributes.tags[0])
+    TagCard(testManga.attributes!!.tags!![0])
 }
