@@ -9,9 +9,11 @@ import de.sortingfarmer.manju.ui.components.MangaTextCardPreview
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    Text("Home")
 
     LazyColumn {
+        item {
+            Text("Home")
+        }
         item {
             MangaImageCardPreview()
         }

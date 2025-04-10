@@ -16,17 +16,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import de.sortingfarmer.manju.apiCalls.ApiClient
-import de.sortingfarmer.manju.dataClass.apiResult.GET.GetMangas
+import de.sortingfarmer.manju.RetrofitClient
+import de.sortingfarmer.manju.openapi.apis.MangaApi
+import de.sortingfarmer.manju.openapi.models.MangaList
 import de.sortingfarmer.manju.ui.components.MangaImageCard
 
 @Composable
 fun AdvancedSearchScreen(navController: NavController) {
-    var manga by remember { mutableStateOf<GetMangas?>(null) }
+    var manga by remember { mutableStateOf<MangaList?>(null) }
     var state by remember { mutableStateOf(LazyGridState()) }
 
     LaunchedEffect(key1 = Unit) {
-        manga = ApiClient.api.getManga()
+        manga = RetrofitClient.instance.create(MangaApi::class.java)
+            .getSearchManga(
+                includes = listOf("cover_art", "tags")
+            ).body()
     }
 
     LazyVerticalGrid(
