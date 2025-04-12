@@ -15,6 +15,8 @@ import coil.request.ImageRequest
 import coil.size.Size
 import coil.transform.CircleCropTransformation
 import de.sortingfarmer.manju.openapi.models.AuthorAttributes
+import de.sortingfarmer.manju.openapi.models.Chapter
+import de.sortingfarmer.manju.openapi.models.ChapterAttributes
 import de.sortingfarmer.manju.openapi.models.CoverAttributes
 import de.sortingfarmer.manju.openapi.models.Manga
 import de.sortingfarmer.manju.openapi.models.MangaAttributes
@@ -259,7 +261,7 @@ val testManga = Manga(
                 youtube = null,
                 weibo = null,
                 naver = null,
-                website = URI.create("https://www.instagram.com/kei_sasuga/"),
+                website = "https://www.instagram.com/kei_sasuga/",
                 createdAt = "2021-04-19T21:59:45+00:00",
                 updatedAt = "2023-03-03T13:19:27+00:00",
                 version = 5
@@ -286,7 +288,7 @@ val testManga = Manga(
                 youtube = null,
                 weibo = null,
                 naver = null,
-                website = URI.create("https://www.instagram.com/kei_sasuga/"),
+                website = "https://www.instagram.com/kei_sasuga/",
                 createdAt = "2021-04-19T21:59:45+00:00",
                 updatedAt = "2023-03-03T13:19:27+00:00",
                 version = 5
@@ -303,6 +305,90 @@ val testManga = Manga(
                 createdAt = "2021-05-24T16:47:12+00:00",
                 updatedAt = "2023-03-06T19:58:53+00:00",
                 version = 2
+            )
+        )
+    )
+)
+
+val testChapter = Chapter(
+    id = UUID.fromString("6cad5f6f-066f-4a19-9e81-b5bb261c0558"),
+    type = Chapter.Type.chapter,
+    attributes = ChapterAttributes(
+        volume = "1",
+        chapter = "1",
+        title = "I want to become an adult quickly",
+        translatedLanguage = "en",
+        externalUrl = null,
+        publishAt = "2018-01-21T21:06:46+00:00",
+        readableAt = "2018-01-21T21:06:46+00:00",
+        createdAt = "2018-01-21T21:06:46+00:00",
+        updatedAt = "2018-01-21T21:06:46+00:00",
+        pages = 52,
+        version = 1
+    ),
+    relationships = listOf(
+        Relationship(
+            id = UUID.fromString("62a656a0-7d6a-42b3-bb61-6ea2e5587509"),
+            type = "scanlation_group",
+            attributes = RelationshipAttributes(
+                name = "Norway Scan",
+                altNames = null,
+                locked = false,
+                website = "https://www.dropbox.com/sh/vjwerlviukmajjj/6wiyzDhGtg",
+                ircServer = "irc.irchighway.net",
+                ircChannel = "pocketloli",
+                discord = null,
+                contactEmail = null,
+                description = "Norway Scan, interchangeable with \"Norway Scans\", is a scanlation group run by anonymous preferred (ap) and Volandum.  \n  \nAny opinion by Norway Scan members, including ap, does not represent the group. Each member is responsible for their opinions or actions.  \n  \nWe do NOT accept any donation. If you want to donate, please do it to our joint groups.  \n  \nanonymous preferred does NOT take any translation request or scanlation offer unless it concerns a project he's been working on. A thank-you letter with such a request, in particular, will be frowned upon. Don't even bother.  \n  \nShould you want to use ap's translation or scanlation for any language, feel free to do so \"without\" bothering asking for his approval. No credit required either. (it is recommended that you contact ap via Norwayscan at gmail.com; he might be able to share PSDs or cleans with you.)  \n  \nFreelancers whom Norway Scan is currently working with:  \nBlack Sword, BondEternal, FD2Raptor, Gecko, GodricKharg, himesaminako, Holy\\_Ca, HTML5, K-man, Kaillus, Kousora, L412D0W, Lemmieh, LoliHunterXD, MarketingReasons, Recongriffin, Sealophile, Spam Sucks, Tactless, Teras, Zekaito and Zujids  \n  \nGroups that Norway Scan has been jointing with, formerly or currently:  \nAfrodhi, C2, Café con Lenin, Ciel Scans, Death Toll Scanlations, Devil Slayer Team, DKThias, Dragon and Griffin Scans, Duralumin, Forgotten Scans, Itadakimasu-Scanlator, Lemon Scans, Loli Brigade Scans, Lovely Scans Italia, MangaIchi Scanlation Division, NEWAVE (formerly, New Wave Scanlations), NFP Scans, One Time Scans, Oyasumi Translations, Pocket Loli Scans, Renzokusei Scans, Riceballicious, S2Scans, Sacred Blade Scans, simhauu, The AG Team and Village Idiot Scanlations.  \n   \nHonorable mentions go to ex-workmates: Alad, andreaphobia, An Editor, Aoiha, Arihou, bdchee, blindbox, bluesky, cafecito, Cesc, Clueless, couchk, Derek, dikbut, Fenrill, GlassSkinned, H\\_Dogma, harshrox3, HimeMiya, iluminado, InfiniteVerisimilitude, Kallamez, khenny123, KnifeBuster, kobester11, LibraryTroll, Lvxi, Maglad, marthaurion, MaxLemon, monokuma, Nightshade\\_q8, n33t, nuggles, PervySageChuck, phaez, Purr-nyan, ranix, Silentdt, Sootopolis, SoSul, stokken, svines85, Tomlobeznokashima, Tryggve, ttahiii, and Vreiya.  \n   \nap's blacklist: al245, Cake-kun, Silentdt, and simhauu  \n  \nIf you can not find the files in the normal link above please look here.  \n  \n[url=[https://www.dropbox.com/sh/4cwdvihqgiyos0b/AABixSJqzH0UyAXDYOtqB4twa?dl=0\"]Dropbox](https://www.dropbox.com/sh/4cwdvihqgiyos0b/AABixSJqzH0UyAXDYOtqB4twa?dl=0%22]Dropbox) Archive[/url]",
+                twitter = null,
+                mangaUpdates = null,
+                focusedLanguage = listOf("en"),
+                official = false,
+                verified = false,
+                inactive = false,
+                publishDelay = null,
+                createdAt = "2021-04-19T21:45:59+00:00",
+                updatedAt = "2021-04-19T21:45:59+00:00",
+                version = 1
+            )
+        ),
+        Relationship(
+            id = UUID.fromString("76912a23-d4f0-4ed1-87bf-3376a5bc13f9"),
+            type = "scanlation_group",
+            attributes = RelationshipAttributes(
+                name = "Café con Lenin",
+                locked = false,
+                website = null,
+                ircServer = null,
+                ircChannel = null,
+                discord = null,
+                contactEmail = null,
+                description = "Inactive Group",
+                twitter = null,
+                mangaUpdates = null,
+                official = false,
+                focusedLanguage = listOf("en"),
+                verified = false,
+                inactive = false,
+                publishDelay = null,
+                createdAt = "2021-04-19T21:45:59+00:00",
+                updatedAt = "2021-05-15T21:06:43+00:00",
+                version = 2
+            )
+        ),
+        Relationship(
+            id = UUID.fromString("4f9eab7d-a2b2-4ee5-9d59-6744f0df4e12"),
+            type = "manga"
+        ),
+        Relationship(
+            id = UUID.fromString("4e65e334-47d7-4198-9130-683bef842ad4"),
+            type = "user",
+            attributes = RelationshipAttributes(
+                username = "Winlux",
+                roles = listOf(
+                    "ROLE_MEMBER"
+                ),
+                version = 54
             )
         )
     )
