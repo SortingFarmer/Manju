@@ -5120,6 +5120,14 @@ components:
             - $ref: '#/components/schemas/ChapterAttributes'
             - $ref: '#/components/schemas/AuthorAttributes'
             - $ref: '#/components/schemas/CoverAttributes'
+            - $ref: '#/components/schemas/TagAttributes'
+            - $ref: '#/components/schemas/ScanlationGroupAttributes'
+            - $ref: '#/components/schemas/UserAttributes'
+            - $ref: '#/components/schemas/CustomListAttributes'
+            - $ref: '#/components/schemas/ApiClientAttributes'
+            - $ref: '#/components/schemas/MappingIdAttributes'
+            - $ref: '#/components/schemas/MangaRelationAttributes'
+            - $ref: '#/components/schemas/ReportAttributes'
     Chapter:
       title: Chapter
       type: object

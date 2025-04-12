@@ -7,4 +7,9 @@
     <string name="views">Views</string>
     <string name="comments">Comments</string>
     <string name="no_image_available">The cover is currently not available.</string>
+    <string name="vol_ch">Vol. %1$s Ch. %2$s</string>
+    <string name="chapter_unread">Chapter Unread</string>
+    <string name="chapter_read">Chapter read</string>
+    <string name="group">Group</string>
+    <string name="no_name_available">No name available.</string>
 </resources>
