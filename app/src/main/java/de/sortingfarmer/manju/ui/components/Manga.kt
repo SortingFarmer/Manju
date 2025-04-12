@@ -52,7 +52,7 @@ fun MangaImageCard(
 
     Card(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(16.dp, 8.dp, 16.dp, 8.dp)
             .clickable(onClick = { onClick() })
     ) {
         DisplayImage(
@@ -102,7 +102,7 @@ fun MangaTextCard(
     val imageSize = 125
     Card(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(16.dp, 8.dp, 16.dp, 8.dp)
             .clickable(onClick = { onClick() })
     ) {
         Row {
@@ -213,9 +213,7 @@ fun MangaTextCard(
                         )
                     }
                 }
-                Row {
-                    TagRow(manga = manga)
-                }
+                TagRow(tags = manga.attributes?.tags!!)
             }
         }
         Text(
@@ -228,15 +226,15 @@ fun MangaTextCard(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun TagRow(manga: Manga) {
+fun TagRow(tags: List<Tag>) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(5.dp)
-            .horizontalScroll(rememberScrollState()), // Add horizontal scroll
+            .horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        manga.attributes?.tags?.forEach { tag ->
+        tags.forEach { tag ->
             TagCard(tag = tag)
         }
     }
