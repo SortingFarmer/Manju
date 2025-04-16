@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.sp
 import de.sortingfarmer.manju.R
 import de.sortingfarmer.manju.openapi.models.Manga
 import de.sortingfarmer.manju.openapi.models.Tag
-import de.sortingfarmer.manju.openapi.models.TagAttributes
 import testManga
 
 @Composable
@@ -77,7 +76,8 @@ fun MangaImageCard(
             }
         )
         Text(
-            text = manga.attributes?.title?.get("en") ?: stringResource(R.string.no_title_available),
+            text = manga.attributes?.title?.get("en")
+                ?: stringResource(R.string.no_title_available),
             modifier = Modifier
                 .padding(10.dp)
                 .align(Alignment.CenterHorizontally),
@@ -129,7 +129,8 @@ fun MangaTextCard(
             )
             Column {
                 Text(
-                    text = manga.attributes?.title?.get("en") ?: stringResource(R.string.no_title_available),
+                    text = manga.attributes?.title?.get("en")
+                        ?: stringResource(R.string.no_title_available),
                     modifier = Modifier
                         .padding(5.dp),
                     fontWeight = FontWeight.ExtraBold,
