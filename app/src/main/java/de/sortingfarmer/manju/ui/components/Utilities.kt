@@ -1,3 +1,4 @@
+import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,6 +32,8 @@ import de.sortingfarmer.manju.openapi.models.Tag
 import de.sortingfarmer.manju.openapi.models.TagAttributes
 import java.math.BigDecimal
 import java.net.URI
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 @Composable
@@ -74,6 +77,16 @@ fun DisplayImage(
             }
         }
     }
+}
+
+fun getRelativeTime(isoString: String): CharSequence {
+    val dateTime = OffsetDateTime.parse(isoString)
+    val epochMilli = dateTime.toInstant().toEpochMilli()
+    return DateUtils.getRelativeTimeSpanString(
+        epochMilli,
+        System.currentTimeMillis(),
+        DateUtils.MINUTE_IN_MILLIS
+    )
 }
 
 val testManga = Manga(
