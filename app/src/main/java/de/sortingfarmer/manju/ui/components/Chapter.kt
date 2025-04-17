@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import de.sortingfarmer.manju.R
 import de.sortingfarmer.manju.openapi.models.Chapter
 import de.sortingfarmer.manju.openapi.models.GetStatisticsChapterUuid200ResponseStatisticsValue
+import formatNumber
 import getRelativeTime
 import testChapter
 import testChapterStatistics
@@ -112,7 +113,7 @@ fun ChapterCard(
                             .padding(2.dp)
                     )
                     Text(
-                        text = if (statistics?.comments?.repliesCount == null) "0" else statistics.comments.repliesCount.toString(),
+                        text = formatNumber(statistics?.comments?.repliesCount?.toInt() ?: 0),
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
