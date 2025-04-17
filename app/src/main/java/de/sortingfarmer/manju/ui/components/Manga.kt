@@ -1,7 +1,6 @@
 package de.sortingfarmer.manju.ui.components
 
 import DisplayImage
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -32,9 +31,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.sortingfarmer.manju.R
+import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200ResponseStatisticsValue
 import de.sortingfarmer.manju.openapi.models.Manga
 import de.sortingfarmer.manju.openapi.models.Tag
+import formatNumber
 import testManga
+import testMangaStatistics
+import java.math.RoundingMode
 
 @Composable
 fun MangaImageCard(
@@ -89,6 +92,7 @@ fun MangaImageCard(
 @Composable
 fun MangaTextCard(
     manga: Manga,
+    statistics: GetStatisticsMangaUuid200ResponseStatisticsValue?,
     onClick: () -> Unit,
 ) {
 
@@ -97,7 +101,6 @@ fun MangaTextCard(
     }?.attributes?.fileName.let {
         "https://uploads.mangadex.org/covers/${manga.id}/${it}"
     }
-    Log.d("MangaTextCard url", url.toString())
 
     val iconSize = 20
     val imageSize = 125
@@ -140,78 +143,70 @@ fun MangaTextCard(
                 )
                 Row(
                     modifier = Modifier
-                        .padding(5.dp)
+                        .padding(2.dp)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Image(
                             painter = painterResource(R.drawable.star_outline),
                             contentDescription = stringResource(R.string.rating),
                             modifier = Modifier
-                                .size(iconSize.dp)
-                                .padding(2.dp),
+                                .size(iconSize.dp),
                         )
                         Text(
                             //Ratings
-                            text = "10.0",
-                            modifier = Modifier.padding(2.dp),
+                            text = (statistics?.rating?.bayesian?.setScale(2, RoundingMode.HALF_UP) ?: 0).toString(),
+                            modifier = Modifier.padding(5.dp, 2.dp),
                         )
 
                     }
-                    VerticalDivider(
-                        color = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.height(iconSize.dp)
-                    )
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Image(
                             painter = painterResource(R.drawable.bookmark_outline),
                             contentDescription = stringResource(R.string.follows),
                             modifier = Modifier
-                                .size(iconSize.dp)
-                                .padding(2.dp),
+                                .size(iconSize.dp),
                         )
                         Text(
                             //Follows
-                            text = "0",
-                            modifier = Modifier.padding(2.dp),
+                            text = formatNumber(statistics?.follows?.toInt() ?: 0),
+                            modifier = Modifier.padding(5.dp, 2.dp),
                         )
 
                     }
-                    VerticalDivider(
-                        color = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.height(iconSize.dp)
-                    )
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Image(
                             painter = painterResource(R.drawable.eye_outline),
                             contentDescription = stringResource(R.string.views),
                             modifier = Modifier
-                                .size(iconSize.dp)
-                                .padding(2.dp),
+                                .size(iconSize.dp),
                         )
                         Text(
                             //Views
                             text = "N/A",
-                            modifier = Modifier.padding(2.dp),
+                            modifier = Modifier.padding(5.dp, 2.dp),
                         )
                     }
-                    VerticalDivider(
-                        color = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.height(iconSize.dp)
-                    )
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Image(
                             painter = painterResource(R.drawable.chatbox_outline),
                             contentDescription = stringResource(R.string.comments),
                             modifier = Modifier
-                                .size(iconSize.dp)
-                                .padding(2.dp),
+                                .size(iconSize.dp),
                         )
                         Text(
                             //Comments
-                            text = "0",
-                            modifier = Modifier.padding(2.dp),
+                            text = formatNumber(statistics?.comments?.repliesCount?.toInt() ?: 0),
+                            modifier = Modifier.padding(5.dp, 2.dp),
                         )
                     }
                 }
@@ -274,7 +269,7 @@ fun MangaImageCardPreview() {
 @Preview(showBackground = true)
 @Composable
 fun MangaTextCardPreview() {
-    MangaTextCard(testManga) {}
+    MangaTextCard(testManga, testMangaStatistics) {}
 }
 
 @Preview(showBackground = true)
