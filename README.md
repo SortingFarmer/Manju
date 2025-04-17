@@ -12,7 +12,9 @@ If you got any questions, [join our Discord server](https://discord.gg/sk5tBM9nx
 [![](https://img.shields.io/github/v/release/sortingfarmer/manju.svg?maxAge=3600&label=Stable&labelColor=000000&color=ff124a&style=for-the-badge)](https://github.com/sortingfarmer/manju/releases/latest)
 
 ## Features include
-#### NONE WORKING YET
+*(More coming soon)*
+
+## Planned features
 - Login your Mangadex account or use incognito mode.
 - You can search new and interesting Manga.
 - Manage your Mangadex library easily.
@@ -20,22 +22,11 @@ If you got any questions, [join our Discord server](https://discord.gg/sk5tBM9nx
 - Get manga based on manga you are reading.
 - Check rating.
 - The theme changes itself by the theme of your system (Light, Dark and other Themes).
-*(More coming soon)*
 
-## Planned features
 - Download chapters.
 - Upload chapters
 - Notifications for new chapters in feed.
 
-## Star History
-
-<a href="https://www.star-history.com/#SortingFarmer/Manju&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=SortingFarmer/Manju&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=SortingFarmer/Manju&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=SortingFarmer/Manju&type=Date" />
- </picture>
-</a>
 
 ## Notice
 Data provided by [Mangadex](https://mangadex.org)
