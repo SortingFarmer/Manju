@@ -28,11 +28,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import de.sortingfarmer.manju.R
 import de.sortingfarmer.manju.openapi.models.Manga
 import de.sortingfarmer.manju.openapi.models.Tag
@@ -81,6 +79,9 @@ fun MangaImageCard(
             modifier = Modifier
                 .padding(10.dp)
                 .align(Alignment.CenterHorizontally),
+            style = MaterialTheme.typography.titleMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }
@@ -133,9 +134,9 @@ fun MangaTextCard(
                         ?: stringResource(R.string.no_title_available),
                     modifier = Modifier
                         .padding(5.dp),
-                    fontWeight = FontWeight.ExtraBold,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 20.sp
+                    style = MaterialTheme.typography.titleLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Row(
                     modifier = Modifier
@@ -221,6 +222,9 @@ fun MangaTextCard(
             text = manga.attributes?.description?.get("en")
                 ?: stringResource(R.string.no_description_available),
             modifier = Modifier.padding(5.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 5,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }
