@@ -12,9 +12,8 @@ If you got any questions, [join our Discord server](https://discord.gg/sk5tBM9nx
 [![](https://img.shields.io/github/v/release/sortingfarmer/manju.svg?maxAge=3600&label=Stable&labelColor=000000&color=ff124a&style=for-the-badge)](https://github.com/sortingfarmer/manju/releases/latest)
 
 ## Features include
-*(More coming soon)*
-
-## Planned features
+> [!NOTE]
+> These features are currently not implemented, they will be implemented over time until the first real release.
 - Login your Mangadex account or use incognito mode.
 - You can search new and interesting Manga.
 - Manage your Mangadex library easily.
@@ -22,7 +21,9 @@ If you got any questions, [join our Discord server](https://discord.gg/sk5tBM9nx
 - Get manga based on manga you are reading.
 - Check rating.
 - The theme changes itself by the theme of your system (Light, Dark and other Themes).
+*(More coming soon)*
 
+## Planned features
 - Download chapters.
 - Upload chapters
 - Notifications for new chapters in feed.
