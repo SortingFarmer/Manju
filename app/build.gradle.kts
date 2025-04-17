@@ -75,13 +75,15 @@ dependencies {
     implementation(libs.converter.scalars)
     implementation(libs.moshi)
 
-
     //coil
     implementation(libs.coil.compose)
 
     //Google firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+
+    // Typed DataStore (Typed API surface, such as Proto)
+    implementation(libs.androidx.datastore)
 }
 
 openApiGenerate {
