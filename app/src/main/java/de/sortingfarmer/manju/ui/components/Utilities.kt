@@ -89,6 +89,14 @@ fun getRelativeTime(isoString: String): CharSequence {
     )
 }
 
+fun formatNumber(number: Int): String {
+    return when {
+        number >= 1_000_000 -> "${number / 1_000_000}M"
+        number >= 1_000 -> "${number / 1_000}k"
+        else -> number.toString()
+    }
+}
+
 val testManga = Manga(
     id = UUID.fromString("4f9eab7d-a2b2-4ee5-9d59-6744f0df4e12"),
     type = Manga.Type.manga,
