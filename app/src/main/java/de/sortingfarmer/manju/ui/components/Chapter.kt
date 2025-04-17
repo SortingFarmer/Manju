@@ -59,12 +59,32 @@ fun ChapterCard(
                         .padding(2.dp)
                         .clickable(onClick = { onReadMarkerClick(chapter.id) })
                 )
+                if (chapter.attributes?.volume != null) {
+                    Text(
+                        text = stringResource(R.string.vol, chapter.attributes.volume),
+                        modifier = Modifier
+                            .padding(0.dp, 5.dp, 1.dp, 0.dp),
+                        style = MaterialTheme.typography.titleSmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                if (chapter.attributes?.chapter != null) {
+                    Text(
+                        text = stringResource(R.string.ch, chapter.attributes.chapter),
+                        modifier = Modifier
+                            .padding(0.dp, 5.dp, 1.dp, 0.dp),
+                        style = MaterialTheme.typography.titleSmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
                 Text(
                     text = chapter.attributes?.title
                         ?: stringResource(R.string.no_title_available),
                     modifier = Modifier
                         .padding(5.dp),
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleSmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
