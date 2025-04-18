@@ -4,14 +4,18 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -20,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import de.sortingfarmer.manju.R
 import de.sortingfarmer.manju.openapi.models.Chapter
 import de.sortingfarmer.manju.openapi.models.GetStatisticsChapterUuid200ResponseStatisticsValue
+import de.sortingfarmer.manju.ui.theme.ManjuTheme
+import de.sortingfarmer.manju.ui.theme.ManjuThemeExtended
 import formatNumber
 import getRelativeTime
 import testChapter
@@ -35,9 +41,9 @@ fun ChapterCard(
     read: Boolean = false,
     onClick: () -> Unit,
     onReadMarkerClick: (id: UUID?) -> Unit,
-    onGroupClick: (id: UUID?) -> Unit = {},
-    onTranslatorClick: (id: UUID?) -> Unit = {},
-    onCommentsClick: (id: BigDecimal?) -> Unit = {},
+    onGroupClick: (id: UUID?) -> Unit,
+    onTranslatorClick: (id: UUID?) -> Unit,
+    onCommentsClick: (id: BigDecimal?) -> Unit,
 ) {
     val iconsize = 30
 
@@ -48,6 +54,13 @@ fun ChapterCard(
     ) {
         Column {
             Row {
+                VerticalDivider(
+                    modifier = Modifier
+                        .height(iconsize.dp)
+                        .clip(RoundedCornerShape(5.dp)),
+                    thickness = 5.dp,
+                    color = if (read) ManjuThemeExtended.extendedColors.statusGray.color else ManjuThemeExtended.extendedColors.statusBlue.color
+                )
                 Image(
                     painter = painterResource(
                         if (read) R.drawable.eye_off_outline else R.drawable.eye_outline
@@ -145,34 +158,39 @@ fun ChapterCard(
                 }
             }
         }
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ChapterCardReadPreview() {
-    ChapterCard(
-        testChapter,
-        read = true,
-        statistics = testChapterStatistics,
-        onClick = {},
-        onReadMarkerClick = {},
-        onGroupClick = {},
-        onTranslatorClick = {},
-    )
+    ManjuTheme {
+        ChapterCard(
+            testChapter,
+            read = true,
+            statistics = testChapterStatistics,
+            onClick = {},
+            onReadMarkerClick = {},
+            onGroupClick = {},
+            onTranslatorClick = {},
+            onCommentsClick = {},
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ChapterCardUnreadPreview() {
-    ChapterCard(
-        testChapter,
-        read = false,
-        statistics = testChapterStatistics,
-        onClick = {},
-        onReadMarkerClick = {},
-        onGroupClick = {},
-        onTranslatorClick = {},
-    )
+    ManjuTheme {
+        ChapterCard(
+            testChapter,
+            read = false,
+            statistics = testChapterStatistics,
+            onClick = {},
+            onReadMarkerClick = {},
+            onGroupClick = {},
+            onTranslatorClick = {},
+            onCommentsClick = {},
+        )
+    }
 }
