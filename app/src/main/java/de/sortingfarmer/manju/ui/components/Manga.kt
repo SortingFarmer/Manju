@@ -20,8 +20,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,7 +35,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.sortingfarmer.manju.R
-import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200ResponseStatisticsValue
+import de.sortingfarmer.manju.RetrofitClient
+import de.sortingfarmer.manju.openapi.apis.StatisticsApi
+import de.sortingfarmer.manju.openapi.infrastructure.CollectionFormats
+import de.sortingfarmer.manju.openapi.models.GetStatisticsManga200Response
+import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200Response
 import de.sortingfarmer.manju.openapi.models.Manga
 import de.sortingfarmer.manju.openapi.models.Tag
 import formatNumber
@@ -92,9 +100,16 @@ fun MangaImageCard(
 @Composable
 fun MangaTextCard(
     manga: Manga,
-    statistics: GetStatisticsMangaUuid200ResponseStatisticsValue?,
     onClick: () -> Unit,
 ) {
+    var statistics by remember { mutableStateOf<GetStatisticsMangaUuid200Response?>(null) }
+
+    LaunchedEffect(key1 = Unit) {
+        statistics = RetrofitClient.instance.create(StatisticsApi::class.java)
+            .getStatisticsMangaUuid(
+                uuid = manga.id!!,
+            ).body()
+    }
 
     val url = manga.relationships?.find {
         it.type == "cover_art"
@@ -158,7 +173,7 @@ fun MangaTextCard(
                         )
                         Text(
                             //Ratings
-                            text = (statistics?.rating?.bayesian?.setScale(2, RoundingMode.HALF_UP) ?: 0).toString(),
+                            text = (statistics?.statistics?.get(manga.id.toString())?.rating?.bayesian?.setScale(2, RoundingMode.HALF_UP) ?: 0).toString(),
                             modifier = Modifier.padding(5.dp, 2.dp),
                         )
 
@@ -174,7 +189,7 @@ fun MangaTextCard(
                         )
                         Text(
                             //Follows
-                            text = formatNumber(statistics?.follows?.toInt() ?: 0),
+                            text = formatNumber(statistics?.statistics?.get(manga.id.toString())?.follows?.toInt() ?: 0),
                             modifier = Modifier.padding(5.dp, 2.dp),
                         )
 
@@ -205,7 +220,7 @@ fun MangaTextCard(
                         )
                         Text(
                             //Comments
-                            text = formatNumber(statistics?.comments?.repliesCount?.toInt() ?: 0),
+                            text = formatNumber(statistics?.statistics?.get(manga.id.toString())?.comments?.repliesCount?.toInt() ?: 0),
                             modifier = Modifier.padding(5.dp, 2.dp),
                         )
                     }
@@ -269,7 +284,7 @@ fun MangaImageCardPreview() {
 @Preview(showBackground = true)
 @Composable
 fun MangaTextCardPreview() {
-    MangaTextCard(testManga, testMangaStatistics) {}
+    MangaTextCard(testManga) {}
 }
 
 @Preview(showBackground = true)
