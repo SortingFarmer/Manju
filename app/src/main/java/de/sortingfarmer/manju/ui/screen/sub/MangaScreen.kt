@@ -35,6 +35,5 @@ fun MangaScreen(navController: NavHostController, id: String) {
 
     manga?.let { MangaTextCard(
         manga = it.data!!,
-        statistics = statistics?.statistics?.get(id)
     ) {} }
 }
