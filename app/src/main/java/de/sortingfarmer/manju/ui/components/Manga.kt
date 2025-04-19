@@ -37,14 +37,11 @@ import androidx.compose.ui.unit.dp
 import de.sortingfarmer.manju.R
 import de.sortingfarmer.manju.RetrofitClient
 import de.sortingfarmer.manju.openapi.apis.StatisticsApi
-import de.sortingfarmer.manju.openapi.infrastructure.CollectionFormats
-import de.sortingfarmer.manju.openapi.models.GetStatisticsManga200Response
 import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200Response
 import de.sortingfarmer.manju.openapi.models.Manga
 import de.sortingfarmer.manju.openapi.models.Tag
 import formatNumber
 import testManga
-import testMangaStatistics
 import java.math.RoundingMode
 
 @Composable
