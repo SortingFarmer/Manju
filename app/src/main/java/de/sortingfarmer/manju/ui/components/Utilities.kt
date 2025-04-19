@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,7 @@ import java.math.BigDecimal
 import java.net.URI
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 import java.util.UUID
 
 @Composable
@@ -91,8 +93,8 @@ fun getRelativeTime(isoString: String): CharSequence {
 
 fun formatNumber(number: Int): String {
     return when {
-        number >= 1_000_000 -> "${number / 1_000_000}M"
-        number >= 1_000 -> "${number / 1_000}k"
+        number >= 1_000_000 -> String.format(Locale.getDefault(), "%.1fM", number / 1_000_000.0)
+        number >= 1_000 -> String.format(Locale.getDefault(), "%.1fk", number / 1_000.0)
         else -> number.toString()
     }
 }
