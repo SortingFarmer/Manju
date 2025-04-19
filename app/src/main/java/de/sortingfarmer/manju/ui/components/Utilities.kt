@@ -1,4 +1,3 @@
-import android.annotation.SuppressLint
 import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -16,10 +15,8 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import coil.transform.CircleCropTransformation
-import de.sortingfarmer.manju.openapi.models.AuthorAttributes
 import de.sortingfarmer.manju.openapi.models.Chapter
 import de.sortingfarmer.manju.openapi.models.ChapterAttributes
-import de.sortingfarmer.manju.openapi.models.CoverAttributes
 import de.sortingfarmer.manju.openapi.models.GetStatisticsChapterUuid200ResponseStatisticsValue
 import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200ResponseStatisticsValue
 import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200ResponseStatisticsValueRating
@@ -34,7 +31,6 @@ import de.sortingfarmer.manju.openapi.models.TagAttributes
 import java.math.BigDecimal
 import java.net.URI
 import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.UUID
 
