@@ -13,4 +13,5 @@
     <string name="no_name_available">No name available.</string>
     <string name="vol">Vol.%1$s</string>
     <string name="ch">Ch.%1$s</string>
+    <string name="grid_enabled">Grid enabled: %1$s</string>
 </resources>
