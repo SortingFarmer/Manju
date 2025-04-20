@@ -1,4 +1,4 @@
-package de.sortingfarmer.manju.ui.screen
+package de.sortingfarmer.manju.ui.screen.sub
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
@@ -55,11 +55,11 @@ val items = listOf(
         icon = R.drawable.shield_half,
         route = "privacy"
     ),
-    Settings(
-        title = "Notifications",
-        icon = R.drawable.notifications_outline,
-        route = "notifications"
-    ),
+//    Settings(
+//        title = "Notifications",
+//        icon = R.drawable.notifications_outline,
+//        route = "notifications"
+//    ),
     Settings(
         title = "About",
         icon = R.drawable.information_circle_outline,

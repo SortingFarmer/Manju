@@ -27,7 +27,7 @@ import de.sortingfarmer.manju.ui.components.TopBar
 import de.sortingfarmer.manju.ui.screen.AdvancedSearchScreen
 import de.sortingfarmer.manju.ui.screen.HomeScreen
 import de.sortingfarmer.manju.ui.screen.LibraryScreen
-import de.sortingfarmer.manju.ui.screen.SettingsScreen
+import de.sortingfarmer.manju.ui.screen.sub.SettingsScreen
 import de.sortingfarmer.manju.ui.screen.SocialScreen
 import de.sortingfarmer.manju.ui.screen.UpdatesScreen
 import de.sortingfarmer.manju.ui.screen.sub.MangaScreen
