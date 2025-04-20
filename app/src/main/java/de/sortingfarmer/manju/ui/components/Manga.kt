@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -43,6 +45,7 @@ import de.sortingfarmer.manju.openapi.apis.StatisticsApi
 import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200Response
 import de.sortingfarmer.manju.openapi.models.Manga
 import de.sortingfarmer.manju.openapi.models.Tag
+import de.sortingfarmer.manju.openapi.models.TagAttributes
 import formatNumber
 import testManga
 import java.math.RoundingMode
@@ -288,7 +291,7 @@ fun TagRow(tags: List<Tag>) {
             .fillMaxWidth()
             .padding(5.dp)
             .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         tags.forEach { tag ->
             TagCard(tag = tag)
@@ -299,20 +302,34 @@ fun TagRow(tags: List<Tag>) {
 @Composable
 fun TagCard(
     tag: Tag,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
+    val isContentTag = tag.attributes?.group == TagAttributes.Group.content
+    val containerColor = if (isContentTag) {
+        MaterialTheme.colorScheme.errorContainer
+    } else {
+        MaterialTheme.colorScheme.secondaryContainer
+    }
+
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+            containerColor = containerColor,
         ),
-        modifier = Modifier.clickable(onClick = { onClick() })
+        modifier = Modifier
+            .clickable { onClick() }
+            .height(30.dp)
     ) {
-        Text(
-            text = tag.attributes?.name?.get("en") ?: "",
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(5.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = tag.attributes?.name?.get("en")
+                    ?: tag.attributes?.group?.value
+                    ?: stringResource(R.string.no_name_available),
+                modifier = Modifier.padding(start = 5.dp, end = 5.dp)
+            )
+        }
     }
 }
 
