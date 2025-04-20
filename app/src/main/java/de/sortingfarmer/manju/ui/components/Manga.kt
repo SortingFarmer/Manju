@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -109,6 +108,7 @@ fun MangaImageCard(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MangaTextCard(
     manga: Manga,
@@ -127,6 +127,7 @@ fun MangaTextCard(
     val imageUrl: String? = coverFileName?.let {
         "https://uploads.mangadex.org/covers/${manga.id}/$it"
     }
+
     val fixedImageWidth = 83.dp
     val imageModifier = Modifier
         .width(fixedImageWidth)
@@ -174,22 +175,23 @@ fun MangaTextCard(
                 ) {
                     Text(
                         text = manga.attributes?.title?.get("en")
+                            ?: manga.attributes?.title?.get("ja")
                             ?: stringResource(R.string.no_title_available),
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Row(
-                        modifier = Modifier
-                            .padding(vertical = 2.dp)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
+                        // Rating
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
                                 painter = painterResource(id = R.drawable.star_outline),
                                 contentDescription = stringResource(R.string.rating),
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(15.dp)
                             )
                             Text(
                                 text = statistics
@@ -197,34 +199,40 @@ fun MangaTextCard(
                                     ?.rating?.bayesian
                                     ?.setScale(2, RoundingMode.HALF_UP)
                                     ?.toString() ?: "0",
-                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                modifier = Modifier.padding(horizontal = 3.dp, vertical = 1.dp),
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         }
+                        // Follows
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
                                 painter = painterResource(id = R.drawable.bookmark_outline),
                                 contentDescription = stringResource(R.string.follows),
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(15.dp)
                             )
                             Text(
                                 text = formatNumber(
                                     statistics?.statistics?.get(manga.id.toString())
                                         ?.follows?.toInt() ?: 0
                                 ),
-                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                modifier = Modifier.padding(horizontal = 3.dp, vertical = 1.dp),
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         }
+                        // Views
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
                                 painter = painterResource(id = R.drawable.eye_outline),
                                 contentDescription = stringResource(R.string.views),
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(15.dp)
                             )
                             Text(
                                 text = "N/A",
-                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                modifier = Modifier.padding(horizontal = 3.dp, vertical = 1.dp),
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         }
+                        // Comments (clickable)
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.clickable {
@@ -241,22 +249,25 @@ fun MangaTextCard(
                             Image(
                                 painter = painterResource(id = R.drawable.chatbox_outline),
                                 contentDescription = stringResource(R.string.comments),
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(15.dp)
                             )
                             Text(
                                 text = formatNumber(
                                     statistics?.statistics?.get(manga.id.toString())
                                         ?.comments?.repliesCount?.toInt() ?: 0
                                 ),
-                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                modifier = Modifier.padding(horizontal = 3.dp, vertical = 1.dp),
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         }
                     }
+                    // Render tags if available.
                     manga.attributes?.tags?.let { tags ->
                         TagRow(tags = tags)
                     }
                 }
             }
+            // Manga description at the bottom.
             Text(
                 text = manga.attributes?.description?.get("en")
                     ?: stringResource(R.string.no_description_available),
