@@ -335,30 +335,6 @@ val testManga = Manga(
     )
 )
 
-val testMangaStatistics = GetStatisticsMangaUuid200ResponseStatisticsValue(
-    comments = StatisticsDetailsComments(
-        threadId = BigDecimal("39453"),
-        repliesCount = BigDecimal("414"),
-    ),
-    rating = GetStatisticsMangaUuid200ResponseStatisticsValueRating(
-        average = BigDecimal("6.6518"),
-        bayesian = BigDecimal("6.692215134660596"),
-        distribution = GetStatisticsMangaUuid200ResponseStatisticsValueRatingDistribution(
-            _1 = 598,
-            _2 = 145,
-            _3 = 139,
-            _4 = 250,
-            _5 = 222,
-            _6 = 320,
-            _7 = 431,
-            _8 = 477,
-            _9 = 464,
-            _10 = 1170
-        )
-    ),
-    follows = 30211
-)
-
 val testChapter = Chapter(
     id = UUID.fromString("6cad5f6f-066f-4a19-9e81-b5bb261c0558"),
     type = Chapter.Type.chapter,
@@ -440,12 +416,5 @@ val testChapter = Chapter(
                 version = 54
             )
         )
-    )
-)
-
-val testChapterStatistics = GetStatisticsChapterUuid200ResponseStatisticsValue(
-    comments = StatisticsDetailsComments(
-        threadId = BigDecimal("4756728"),
-        repliesCount = BigDecimal("12")
     )
 )
