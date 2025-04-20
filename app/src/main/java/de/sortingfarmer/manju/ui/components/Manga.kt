@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -52,48 +53,59 @@ fun MangaImageCard(
     manga: Manga,
     onClick: () -> Unit,
 ) {
-    val url = manga.relationships?.find {
+    val coverFileName = manga.relationships?.firstOrNull {
         it.type == "cover_art"
-    }?.attributes?.fileName.let {
-        "https://uploads.mangadex.org/covers/${manga.id}/${it}"
+    }?.attributes?.fileName
+    val imageUrl = coverFileName?.let {
+        "https://uploads.mangadex.org/covers/${manga.id}/$it"
     }
+
+    val imageModifier = Modifier
+        .fillMaxWidth()
+        .aspectRatio(2f / 3f)
+        .padding(5.dp)
+        .clip(RoundedCornerShape(5.dp))
 
     Card(
         modifier = Modifier
-            .padding(16.dp, 8.dp, 16.dp, 8.dp)
-            .clickable(onClick = { onClick() })
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable { onClick() },
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        DisplayImage(
-            imageUrl = url.toString(),
-            modifier = Modifier
-                .width(((200 / 3) * 2).dp)
-                .height(200.dp)
-                .padding(5.dp)
-                .clip(RoundedCornerShape(5.dp)),
-            contentDescription = manga.attributes?.title?.get("en")
-                ?: stringResource(R.string.no_title_available),
-            onError = {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (imageUrl != null) {
+                DisplayImage(
+                    imageUrl = imageUrl,
+                    modifier = imageModifier,
+                    contentDescription = manga.attributes?.title?.get("en")
+                        ?: stringResource(R.string.no_title_available),
+                    onError = {
+                        Image(
+                            painter = painterResource(id = R.drawable.coverplaceholder),
+                            contentDescription = stringResource(R.string.no_image_available),
+                            modifier = imageModifier
+                        )
+                    }
+                )
+            } else {
                 Image(
-                    painter = painterResource(R.drawable.coverplaceholder),
+                    painter = painterResource(id = R.drawable.coverplaceholder),
                     contentDescription = stringResource(R.string.no_image_available),
-                    modifier = Modifier
-                        .width(((200 / 3) * 2).dp)
-                        .height(200.dp)
-                        .padding(5.dp)
-                        .clip(RoundedCornerShape(5.dp)),
+                    modifier = imageModifier
                 )
             }
-        )
-        Text(
-            text = manga.attributes?.title?.get("en")
-                ?: stringResource(R.string.no_title_available),
-            modifier = Modifier
-                .padding(10.dp)
-                .align(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.titleMedium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+            Text(
+                text = manga.attributes?.title?.get("en")
+                    ?: stringResource(R.string.no_title_available),
+                modifier = Modifier.padding(10.dp),
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
     }
 }
 
@@ -105,156 +117,155 @@ fun MangaTextCard(
     val context = LocalContext.current
     var statistics by remember { mutableStateOf<GetStatisticsMangaUuid200Response?>(null) }
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = manga.id) {
         statistics = RetrofitClient.instance.create(StatisticsApi::class.java)
-            .getStatisticsMangaUuid(
-                uuid = manga.id!!,
-            ).body()
+            .getStatisticsMangaUuid(uuid = manga.id!!).body()
     }
 
-    val url = manga.relationships?.find {
-        it.type == "cover_art"
-    }?.attributes?.fileName.let {
-        "https://uploads.mangadex.org/covers/${manga.id}/${it}"
+    val coverFileName = manga.relationships?.firstOrNull { it.type == "cover_art" }
+        ?.attributes?.fileName
+    val imageUrl: String? = coverFileName?.let {
+        "https://uploads.mangadex.org/covers/${manga.id}/$it"
     }
+    val fixedImageWidth = 83.dp
+    val imageModifier = Modifier
+        .width(fixedImageWidth)
+        .aspectRatio(2f / 3f)
+        .padding(5.dp)
+        .clip(RoundedCornerShape(5.dp))
 
-    val iconSize = 20
-    val imageSize = 125
     Card(
         modifier = Modifier
-            .padding(16.dp, 8.dp, 16.dp, 8.dp)
-            .clickable(onClick = { onClick() })
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable { onClick() },
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row {
-            DisplayImage(
-                imageUrl = url.toString(),
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
                 modifier = Modifier
-                    .width(((imageSize / 3) * 2).dp)
-                    .height(imageSize.dp)
+                    .fillMaxWidth()
                     .padding(5.dp)
-                    .clip(RoundedCornerShape(5.dp)),
-                contentDescription = manga.attributes?.title?.get("en")
-                    ?: stringResource(R.string.no_title_available),
-                onError = {
+            ) {
+                if (imageUrl != null) {
+                    DisplayImage(
+                        imageUrl = imageUrl,
+                        modifier = imageModifier,
+                        contentDescription = manga.attributes?.title?.get("en")
+                            ?: stringResource(R.string.no_title_available),
+                        onError = {
+                            Image(
+                                painter = painterResource(id = R.drawable.coverplaceholder),
+                                contentDescription = stringResource(R.string.no_image_available),
+                                modifier = imageModifier
+                            )
+                        }
+                    )
+                } else {
                     Image(
-                        painter = painterResource(R.drawable.coverplaceholder),
+                        painter = painterResource(id = R.drawable.coverplaceholder),
                         contentDescription = stringResource(R.string.no_image_available),
-                        modifier = Modifier
-                            .width(((imageSize / 3) * 2).dp)
-                            .height(imageSize.dp)
-                            .padding(5.dp)
-                            .clip(RoundedCornerShape(5.dp)),
+                        modifier = imageModifier
                     )
                 }
-            )
-            Column {
-                Text(
-                    text = manga.attributes?.title?.get("en")
-                        ?: stringResource(R.string.no_title_available),
+                Column(
                     modifier = Modifier
-                        .padding(5.dp),
-                    style = MaterialTheme.typography.titleLarge,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(2.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .padding(5.dp)
+                        .weight(1f)
                 ) {
+                    Text(
+                        text = manga.attributes?.title?.get("en")
+                            ?: stringResource(R.string.no_title_available),
+                        style = MaterialTheme.typography.titleLarge,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier
+                            .padding(vertical = 2.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Image(
-                            painter = painterResource(R.drawable.star_outline),
-                            contentDescription = stringResource(R.string.rating),
-                            modifier = Modifier
-                                .size(iconSize.dp),
-                        )
-                        Text(
-                            //Ratings
-                            text = (statistics?.statistics?.get(manga.id.toString())?.rating?.bayesian?.setScale(
-                                2,
-                                RoundingMode.HALF_UP
-                            ) ?: 0).toString(),
-                            modifier = Modifier.padding(5.dp, 2.dp),
-                        )
-
-                    }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.bookmark_outline),
-                            contentDescription = stringResource(R.string.follows),
-                            modifier = Modifier
-                                .size(iconSize.dp),
-                        )
-                        Text(
-                            //Follows
-                            text = formatNumber(
-                                statistics?.statistics?.get(manga.id.toString())?.follows?.toInt()
-                                    ?: 0
-                            ),
-                            modifier = Modifier.padding(5.dp, 2.dp),
-                        )
-
-                    }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.eye_outline),
-                            contentDescription = stringResource(R.string.views),
-                            modifier = Modifier
-                                .size(iconSize.dp),
-                        )
-                        Text(
-                            //Views
-                            text = "N/A",
-                            modifier = Modifier.padding(5.dp, 2.dp),
-                        )
-                    }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable(onClick = {
-                            val intent = Intent(
-                                Intent.ACTION_VIEW,
-                                "https://forums.mangadex.org/threads/${
-                                    statistics?.statistics?.get(manga.id.toString())?.comments?.threadId
-                                }".toUri()
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Image(
+                                painter = painterResource(id = R.drawable.star_outline),
+                                contentDescription = stringResource(R.string.rating),
+                                modifier = Modifier.size(20.dp)
                             )
-                            context.startActivity(intent)
-                        })
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.chatbox_outline),
-                            contentDescription = stringResource(R.string.comments),
-                            modifier = Modifier
-                                .size(iconSize.dp),
-                        )
-                        Text(
-                            //Comments
-                            text = formatNumber(
-                                statistics?.statistics?.get(manga.id.toString())?.comments?.repliesCount?.toInt()
-                                    ?: 0
-                            ),
-                            modifier = Modifier.padding(5.dp, 2.dp),
-                        )
+                            Text(
+                                text = statistics
+                                    ?.statistics?.get(manga.id.toString())
+                                    ?.rating?.bayesian
+                                    ?.setScale(2, RoundingMode.HALF_UP)
+                                    ?.toString() ?: "0",
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                            )
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Image(
+                                painter = painterResource(id = R.drawable.bookmark_outline),
+                                contentDescription = stringResource(R.string.follows),
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = formatNumber(
+                                    statistics?.statistics?.get(manga.id.toString())
+                                        ?.follows?.toInt() ?: 0
+                                ),
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                            )
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Image(
+                                painter = painterResource(id = R.drawable.eye_outline),
+                                contentDescription = stringResource(R.string.views),
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = "N/A",
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                            )
+                        }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable {
+                                statistics?.statistics?.get(manga.id.toString())
+                                    ?.comments?.threadId?.let { threadId ->
+                                        val intent = Intent(
+                                            Intent.ACTION_VIEW,
+                                            "https://forums.mangadex.org/threads/$threadId".toUri()
+                                        )
+                                        context.startActivity(intent)
+                                    }
+                            }
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.chatbox_outline),
+                                contentDescription = stringResource(R.string.comments),
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = formatNumber(
+                                    statistics?.statistics?.get(manga.id.toString())
+                                        ?.comments?.repliesCount?.toInt() ?: 0
+                                ),
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+                    manga.attributes?.tags?.let { tags ->
+                        TagRow(tags = tags)
                     }
                 }
-                TagRow(tags = manga.attributes?.tags!!)
             }
+            Text(
+                text = manga.attributes?.description?.get("en")
+                    ?: stringResource(R.string.no_description_available),
+                modifier = Modifier.padding(5.dp),
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 5,
+                overflow = TextOverflow.Ellipsis
+            )
         }
-        Text(
-            text = manga.attributes?.description?.get("en")
-                ?: stringResource(R.string.no_description_available),
-            modifier = Modifier.padding(5.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 5,
-            overflow = TextOverflow.Ellipsis
-        )
     }
 }
 
