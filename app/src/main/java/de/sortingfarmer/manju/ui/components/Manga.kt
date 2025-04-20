@@ -1,6 +1,7 @@
 package de.sortingfarmer.manju.ui.components
 
 import DisplayImage
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -29,11 +30,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import de.sortingfarmer.manju.R
 import de.sortingfarmer.manju.RetrofitClient
 import de.sortingfarmer.manju.openapi.apis.StatisticsApi
@@ -99,6 +102,7 @@ fun MangaTextCard(
     manga: Manga,
     onClick: () -> Unit,
 ) {
+    val context = LocalContext.current
     var statistics by remember { mutableStateOf<GetStatisticsMangaUuid200Response?>(null) }
 
     LaunchedEffect(key1 = Unit) {
@@ -170,7 +174,10 @@ fun MangaTextCard(
                         )
                         Text(
                             //Ratings
-                            text = (statistics?.statistics?.get(manga.id.toString())?.rating?.bayesian?.setScale(2, RoundingMode.HALF_UP) ?: 0).toString(),
+                            text = (statistics?.statistics?.get(manga.id.toString())?.rating?.bayesian?.setScale(
+                                2,
+                                RoundingMode.HALF_UP
+                            ) ?: 0).toString(),
                             modifier = Modifier.padding(5.dp, 2.dp),
                         )
 
@@ -186,7 +193,10 @@ fun MangaTextCard(
                         )
                         Text(
                             //Follows
-                            text = formatNumber(statistics?.statistics?.get(manga.id.toString())?.follows?.toInt() ?: 0),
+                            text = formatNumber(
+                                statistics?.statistics?.get(manga.id.toString())?.follows?.toInt()
+                                    ?: 0
+                            ),
                             modifier = Modifier.padding(5.dp, 2.dp),
                         )
 
@@ -207,7 +217,16 @@ fun MangaTextCard(
                         )
                     }
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable(onClick = {
+                            val intent = Intent(
+                                Intent.ACTION_VIEW,
+                                "https://forums.mangadex.org/threads/${
+                                    statistics?.statistics?.get(manga.id.toString())?.comments?.threadId
+                                }".toUri()
+                            )
+                            context.startActivity(intent)
+                        })
                     ) {
                         Image(
                             painter = painterResource(R.drawable.chatbox_outline),
@@ -217,7 +236,10 @@ fun MangaTextCard(
                         )
                         Text(
                             //Comments
-                            text = formatNumber(statistics?.statistics?.get(manga.id.toString())?.comments?.repliesCount?.toInt() ?: 0),
+                            text = formatNumber(
+                                statistics?.statistics?.get(manga.id.toString())?.comments?.repliesCount?.toInt()
+                                    ?: 0
+                            ),
                             modifier = Modifier.padding(5.dp, 2.dp),
                         )
                     }

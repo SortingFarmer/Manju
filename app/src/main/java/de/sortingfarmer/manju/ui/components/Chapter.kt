@@ -1,5 +1,6 @@
 package de.sortingfarmer.manju.ui.components
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -38,8 +40,8 @@ import de.sortingfarmer.manju.ui.theme.ManjuThemeExtended
 import formatNumber
 import getRelativeTime
 import testChapter
-import java.math.BigDecimal
 import java.util.UUID
+import androidx.core.net.toUri
 
 @Composable
 fun ChapterCard(
@@ -50,9 +52,9 @@ fun ChapterCard(
     onReadMarkerClick: (id: UUID?) -> Unit,
     onGroupClick: (id: UUID?) -> Unit,
     onTranslatorClick: (id: UUID?) -> Unit,
-    onCommentsClick: (id: BigDecimal?) -> Unit,
 ) {
     val iconsize = 30
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     var statistics by remember { mutableStateOf<GetStatisticsChapterUuid200Response?>(null) }
 
@@ -185,7 +187,15 @@ fun ChapterCard(
                     style = MaterialTheme.typography.bodySmall
                 )
                 Row(
-                    modifier = Modifier.clickable(onClick = { onCommentsClick(statistics?.statistics?.get(chapter.id.toString())?.comments?.threadId) })
+                    modifier = Modifier.clickable(onClick = {
+                        val intent = Intent(
+                            Intent.ACTION_VIEW,
+                            "https://forums.mangadex.org/threads/${
+                                statistics?.statistics?.get(chapter.id.toString())?.comments?.threadId
+                            }".toUri()
+                        )
+                        context.startActivity(intent)
+                    })
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.chatbox_outline),
@@ -195,7 +205,10 @@ fun ChapterCard(
                             .padding(2.dp)
                     )
                     Text(
-                        text = formatNumber(statistics?.statistics?.get(chapter.id.toString())?.comments?.repliesCount?.toInt() ?: 0),
+                        text = formatNumber(
+                            statistics?.statistics?.get(chapter.id.toString())?.comments?.repliesCount?.toInt()
+                                ?: 0
+                        ),
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -224,7 +237,6 @@ fun ChapterCardReadPreview() {
             onReadMarkerClick = {},
             onGroupClick = {},
             onTranslatorClick = {},
-            onCommentsClick = {},
         )
     }
 }
@@ -240,7 +252,6 @@ fun ChapterCardUnreadPreview() {
             onReadMarkerClick = {},
             onGroupClick = {},
             onTranslatorClick = {},
-            onCommentsClick = {},
         )
     }
 }
