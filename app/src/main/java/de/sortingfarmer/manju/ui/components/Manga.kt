@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -44,11 +45,14 @@ import de.sortingfarmer.manju.RetrofitClient
 import de.sortingfarmer.manju.openapi.apis.StatisticsApi
 import de.sortingfarmer.manju.openapi.models.GetStatisticsMangaUuid200Response
 import de.sortingfarmer.manju.openapi.models.Manga
+import de.sortingfarmer.manju.openapi.models.MangaAttributes
 import de.sortingfarmer.manju.openapi.models.Tag
 import de.sortingfarmer.manju.openapi.models.TagAttributes
+import de.sortingfarmer.manju.ui.theme.ManjuThemeExtended
 import formatNumber
 import testManga
 import java.math.RoundingMode
+import kotlin.text.replaceFirstChar
 
 @Composable
 fun MangaImageCard(
@@ -264,6 +268,65 @@ fun MangaTextCard(
                             )
                         }
                     }
+                    Row {
+                        val ratingBasedColor = when (manga.attributes?.contentRating) {
+                            MangaAttributes.ContentRating.safe -> ManjuThemeExtended.extendedColors.statusGray
+                            MangaAttributes.ContentRating.suggestive -> ManjuThemeExtended.extendedColors.statusYellow
+                            MangaAttributes.ContentRating.erotica -> ManjuThemeExtended.extendedColors.statusRed
+                            MangaAttributes.ContentRating.pornographic -> ManjuThemeExtended.extendedColors.statusRed
+                            else -> ManjuThemeExtended.extendedColors.statusGray
+
+                        }
+                        val statusBasedColor = when (manga.attributes?.status) {
+                            MangaAttributes.Status.completed -> ManjuThemeExtended.extendedColors.statusBlue
+                            MangaAttributes.Status.hiatus -> ManjuThemeExtended.extendedColors.statusYellow
+                            MangaAttributes.Status.cancelled -> ManjuThemeExtended.extendedColors.statusRed
+                            MangaAttributes.Status.ongoing -> ManjuThemeExtended.extendedColors.statusGreen
+                            else -> ManjuThemeExtended.extendedColors.statusGray
+                        }
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = statusBasedColor.colorContainer,
+                            ),
+                            modifier = Modifier
+                                .height(38.dp)
+                                .padding(4.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxHeight(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = manga.attributes?.status?.value?.replaceFirstChar {
+                                    it.uppercase()
+                                } ?: stringResource(R.string.no_status_available),
+                                    modifier = Modifier.padding(start = 5.dp, end = 5.dp),
+                                    color = statusBasedColor.onColorContainer
+                                )
+                            }
+                        }
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = ratingBasedColor.colorContainer,
+                            ),
+                            modifier = Modifier
+                                .height(38.dp)
+                                .padding(4.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxHeight(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = manga.attributes?.contentRating?.value?.replaceFirstChar {
+                                        it.uppercase()
+                                    }?: stringResource(R.string.no_rating_available),
+                                    modifier = Modifier.padding(start = 5.dp, end = 5.dp),
+                                    color = ratingBasedColor.onColorContainer
+                                )
+                            }
+                        }
+                    }
                     // Render tags if available.
                     manga.attributes?.tags?.let { tags ->
                         TagRow(tags = tags)
@@ -286,6 +349,16 @@ fun MangaTextCard(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TagRow(tags: List<Tag>) {
+    val sortedTags = tags.sortedBy { tag ->
+        when (tag.attributes?.group) {
+            TagAttributes.Group.content -> 0
+            TagAttributes.Group.format -> 1
+            TagAttributes.Group.genre -> 2
+            TagAttributes.Group.theme -> 3
+            else -> 4
+        }
+    }
+
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -293,7 +366,7 @@ fun TagRow(tags: List<Tag>) {
             .horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        tags.forEach { tag ->
+        sortedTags.forEach { tag ->
             TagCard(tag = tag)
         }
     }
@@ -305,6 +378,7 @@ fun TagCard(
     onClick: () -> Unit = {}
 ) {
     val isContentTag = tag.attributes?.group == TagAttributes.Group.content
+
     val containerColor = if (isContentTag) {
         MaterialTheme.colorScheme.errorContainer
     } else {
