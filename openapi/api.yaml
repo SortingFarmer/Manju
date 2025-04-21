@@ -1815,7 +1815,6 @@ paths:
           name: excludedUploaders[]
         - schema:
             type: string
-            default: "1"
             enum: [ "0", "1" ]
           in: query
           name: includeFutureUpdates
@@ -1893,7 +1892,7 @@ paths:
                 - scanlation_group
                 - user
           in: query
-          name: includes
+          name: includes[]
       tags:
         - Chapter
       security: [ ]
@@ -2095,8 +2094,8 @@ paths:
           name: excludedUploaders[]
         - schema:
             type: string
-            default: "1"
-            enum: [ "0", "1" ]
+            default: 1
+            enum: [ 0, 1 ]
           in: query
           name: includeFutureUpdates
         - schema:
