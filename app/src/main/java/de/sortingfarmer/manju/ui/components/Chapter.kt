@@ -51,14 +51,14 @@ fun ChapterCard(
     onClick: () -> Unit,
     onReadMarkerClick: (id: UUID?) -> Unit,
     onGroupClick: (id: UUID?) -> Unit,
-    onTranslatorClick: (id: UUID?) -> Unit,
+    onUserClick: (id: UUID?) -> Unit,
 ) {
     val iconsize = 30
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     var statistics by remember { mutableStateOf<GetStatisticsChapterUuid200Response?>(null) }
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = chapter.id) {
         statistics = RetrofitClient.instance.create(StatisticsApi::class.java)
             .getStatisticsChapterUuid(
                 uuid = chapter.id!!,
@@ -170,7 +170,7 @@ fun ChapterCard(
                                             ?: stringResource(R.string.no_name_available)
                                     )
                                 },
-                                onClick = { onTranslatorClick(it.id) },
+                                onClick = { onUserClick(it.id) },
                                 leadingIcon = {
                                     Icon(
                                         painterResource(R.drawable.person_circle_outline),
@@ -236,7 +236,7 @@ fun ChapterCardReadPreview() {
             onClick = {},
             onReadMarkerClick = {},
             onGroupClick = {},
-            onTranslatorClick = {},
+            onUserClick = {},
         )
     }
 }
@@ -251,7 +251,7 @@ fun ChapterCardUnreadPreview() {
             onClick = {},
             onReadMarkerClick = {},
             onGroupClick = {},
-            onTranslatorClick = {},
+            onUserClick = {},
         )
     }
 }
