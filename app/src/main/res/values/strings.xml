@@ -16,4 +16,6 @@
     <string name="grid_enabled">Grid enabled: %1$s</string>
     <string name="translator">Translator</string>
     <string name="translators">Translators</string>
+    <string name="no_rating_available">Unknown rating</string>
+    <string name="no_status_available">Unknown status</string>
 </resources>
