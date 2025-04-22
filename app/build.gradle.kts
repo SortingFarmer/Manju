@@ -1,3 +1,4 @@
+import com.android.tools.r8.retrace.Partition.main
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -35,16 +36,26 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
         viewBinding = true
+    }
+
+    sourceSets {
+        getByName("main") {
+            val dirs = listOf("src/main/res", "src/main/icon-res", "src/main/flag-res")
+            res.srcDirs(*dirs.toTypedArray())
+        }
     }
 }
 

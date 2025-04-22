@@ -4,6 +4,7 @@ coilCompose = "2.7.0"
 converterGson = "2.11.0"
 datastore = "1.1.4"
 firebaseBom = "33.12.0"
+flagkitAndroid = "1.0.5"
 kotlin = "2.1.10"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -26,6 +27,7 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterGson" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+flagkit-android = { module = "com.github.murgupluoglu:flagkit-android", version.ref = "flagkitAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

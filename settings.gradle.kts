@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.mavenCentral
+import org.gradle.kotlin.dsl.repositories
+
 pluginManagement {
     repositories {
         google {
@@ -16,6 +19,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://jitpack.io")
     }
 }
 
