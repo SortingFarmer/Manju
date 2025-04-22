@@ -82,35 +82,32 @@ fun MangaImageCard(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (imageUrl != null) {
-                DisplayImage(
-                    imageUrl = imageUrl,
-                    modifier = imageModifier,
-                    contentDescription = manga.attributes?.title?.get("en")
+            DisplayImage(
+                imageUrl = imageUrl!!,
+                modifier = imageModifier,
+                contentDescription = manga.attributes?.title?.get("en")
+                    ?: stringResource(R.string.no_title_available),
+                onError = {
+                    Image(
+                        painter = painterResource(id = R.drawable.coverplaceholder),
+                        contentDescription = stringResource(R.string.no_image_available),
+                        modifier = imageModifier
+                    )
+                }
+            )
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = manga.attributes?.title?.get("en")
                         ?: stringResource(R.string.no_title_available),
-                    onError = {
-                        Image(
-                            painter = painterResource(id = R.drawable.coverplaceholder),
-                            contentDescription = stringResource(R.string.no_image_available),
-                            modifier = imageModifier
-                        )
-                    }
-                )
-            } else {
-                Image(
-                    painter = painterResource(id = R.drawable.coverplaceholder),
-                    contentDescription = stringResource(R.string.no_image_available),
-                    modifier = imageModifier
+                    modifier = Modifier.padding(5.dp),
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
-            Text(
-                text = manga.attributes?.title?.get("en")
-                    ?: stringResource(R.string.no_title_available),
-                modifier = Modifier.padding(10.dp),
-                style = MaterialTheme.typography.titleMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
         }
     }
 }
