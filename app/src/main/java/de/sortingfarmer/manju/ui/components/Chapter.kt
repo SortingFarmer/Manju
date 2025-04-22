@@ -111,15 +111,16 @@ fun ChapterCard(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                Text(
-                    text = chapter.attributes?.title
-                        ?: stringResource(R.string.no_title_available),
-                    modifier = Modifier
-                        .padding(5.dp),
-                    style = MaterialTheme.typography.titleSmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                if (chapter.attributes?.title != null) {
+                    Text(
+                        text = chapter.attributes.title,
+                        modifier = Modifier
+                            .padding(5.dp),
+                        style = MaterialTheme.typography.titleSmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
             Row(
                 modifier = Modifier.padding(6.dp, 0.dp, 0.dp, 0.dp)
