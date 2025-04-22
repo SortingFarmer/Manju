@@ -64,7 +64,7 @@ fun MangaScreen(navController: NavHostController, id: String) {
                     chapter = it,
                     read = true,
                     onClick = {
-                        navController.navigate("chapter/${it.id}")
+                        navController.navigate("chapter/${id}/${it.id}")
                     },
                     onReadMarkerClick = {},
                     onGroupClick = {},
