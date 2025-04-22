@@ -3,6 +3,7 @@ package de.sortingfarmer.manju.ui.screen.sub
 import DisplayImage
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.HorizontalDivider
 import androidx.navigation.NavHostController
 import androidx.compose.runtime.Composable
 import de.sortingfarmer.manju.RetrofitClient
@@ -12,10 +13,13 @@ import java.util.UUID
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import de.sortingfarmer.manju.ui.theme.ManjuThemeExtended
 
 @Composable
 fun ChapterScreen(
     navController: NavHostController,
+    mangaId: String,
     chapterId: String
 ) {
     val chapterResponse by produceState<GetAtHomeServerChapterId200Response?>(initialValue = null, key1 = chapterId) {
@@ -32,9 +36,18 @@ fun ChapterScreen(
     }
 
     LazyColumn {
+        item {
+            HorizontalDivider(
+                thickness = 5.dp,
+                color = ManjuThemeExtended.extendedColors.statusGray.color
+            )
+        }
         imageUrls?.forEach {
             item {
                 DisplayImage(it, modifier = Modifier.fillMaxSize())
+                HorizontalDivider(
+                    thickness = 5.dp,
+                    color = ManjuThemeExtended.extendedColors.statusGray.color)
             }
         }
     }
