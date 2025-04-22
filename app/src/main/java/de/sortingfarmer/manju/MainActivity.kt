@@ -30,6 +30,7 @@ import de.sortingfarmer.manju.ui.screen.LibraryScreen
 import de.sortingfarmer.manju.ui.screen.sub.SettingsScreen
 import de.sortingfarmer.manju.ui.screen.SocialScreen
 import de.sortingfarmer.manju.ui.screen.UpdatesScreen
+import de.sortingfarmer.manju.ui.screen.sub.ChapterScreen
 import de.sortingfarmer.manju.ui.screen.sub.MangaScreen
 import de.sortingfarmer.manju.ui.screen.sub.settings.AboutScreen
 
@@ -52,10 +53,9 @@ class MainActivity : ComponentActivity() {
                     var showBackArrow = true
 
                     showBackArrow = when (navBackStackEntry?.destination?.route) {
-                        "home" -> {
+                        "home", "updates", "advanced_search", "social", "library" -> {
                             false
                         }
-
                         else -> {
                             true
                         }
@@ -137,6 +137,17 @@ fun Navigation(
             )
         ) { backStackEntry ->
             MangaScreen(navController, backStackEntry.arguments?.getString("id").toString())
+        }
+
+        composable(
+            route = "chapter/{id}",
+            arguments = listOf(
+                navArgument(name = "id") {
+                    type = NavType.StringType
+                }
+            )
+        ) {backStackEntry ->
+            ChapterScreen(navController, backStackEntry.arguments?.getString("id").toString())
         }
 
         //Secondary screens
