@@ -140,14 +140,21 @@ fun Navigation(
         }
 
         composable(
-            route = "chapter/{id}",
+            route = "chapter/{mangaId}/{chapterId}",
             arguments = listOf(
-                navArgument(name = "id") {
+                navArgument(name = "mangaId") {
+                    type = NavType.StringType
+                },
+                navArgument(name = "chapterId") {
                     type = NavType.StringType
                 }
             )
         ) {backStackEntry ->
-            ChapterScreen(navController, backStackEntry.arguments?.getString("id").toString())
+            ChapterScreen(
+                navController,
+                backStackEntry.arguments?.getString("mangaId").toString(),
+                backStackEntry.arguments?.getString("chapterId").toString()
+            )
         }
 
         //Secondary screens
