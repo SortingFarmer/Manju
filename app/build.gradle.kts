@@ -1,4 +1,3 @@
-import com.android.tools.r8.retrace.Partition.main
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
