@@ -30,8 +30,8 @@ import de.sortingfarmer.manju.ui.screen.LibraryScreen
 import de.sortingfarmer.manju.ui.screen.sub.SettingsScreen
 import de.sortingfarmer.manju.ui.screen.SocialScreen
 import de.sortingfarmer.manju.ui.screen.UpdatesScreen
-import de.sortingfarmer.manju.ui.screen.sub.ChapterScreen
-import de.sortingfarmer.manju.ui.screen.sub.MangaScreen
+import de.sortingfarmer.manju.ui.screen.sub.reading.ChapterScreen
+import de.sortingfarmer.manju.ui.screen.sub.reading.MangaScreen
 import de.sortingfarmer.manju.ui.screen.sub.settings.AboutScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
