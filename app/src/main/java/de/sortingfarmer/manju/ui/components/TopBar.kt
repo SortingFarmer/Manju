@@ -50,7 +50,9 @@ fun TopBar(
         actions = {
             if (currentRoute != "advanced_search") {
                 IconButton(
-                    onClick = {}
+                    onClick = {
+                        navController.navigate("advanced_search")
+                    }
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.search_outline),
