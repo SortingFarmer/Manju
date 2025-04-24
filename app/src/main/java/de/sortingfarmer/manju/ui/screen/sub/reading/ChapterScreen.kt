@@ -1,7 +1,7 @@
-package de.sortingfarmer.manju.ui.screen.sub
+package de.sortingfarmer.manju.ui.screen.sub.reading
 
 import DisplayImage
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
 import androidx.navigation.NavHostController
@@ -29,11 +29,11 @@ fun ChapterScreen(
             .body()
     }
 
-    val baseUrl = chapterResponse?.baseUrl
-    val hash = chapterResponse?.chapter?.hash
+    val baseUrl = chapterResponse?.baseUrl.orEmpty()
+    val hash = chapterResponse?.chapter?.hash.orEmpty()
     val imageUrls = chapterResponse?.chapter?.data?.map { filename ->
         "$baseUrl/data/$hash/$filename"
-    }
+    } ?: emptyList()
 
     LazyColumn {
         item {
@@ -42,13 +42,15 @@ fun ChapterScreen(
                 color = ManjuThemeExtended.extendedColors.statusGray.color
             )
         }
-        imageUrls?.forEach {
+
+        imageUrls.forEach { imageUrl ->
             item {
-                DisplayImage(it, modifier = Modifier.fillMaxSize())
-                HorizontalDivider(
-                    thickness = 5.dp,
-                    color = ManjuThemeExtended.extendedColors.statusGray.color)
-            }
+            DisplayImage(imageUrl = imageUrl, modifier = Modifier.fillMaxWidth())
+            HorizontalDivider(
+                thickness = 5.dp,
+                color = ManjuThemeExtended.extendedColors.statusGray.color
+            )
+                }
         }
     }
 }

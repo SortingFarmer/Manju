@@ -1,4 +1,4 @@
-package de.sortingfarmer.manju.ui.screen.sub
+package de.sortingfarmer.manju.ui.screen.sub.reading
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
