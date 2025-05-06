@@ -103,7 +103,7 @@ fun Navigation(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = "home"
+        startDestination = "advanced_search"
     ) {
 
         //Main screens
