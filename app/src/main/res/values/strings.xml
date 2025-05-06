@@ -18,4 +18,5 @@
     <string name="translators">Translators</string>
     <string name="no_rating_available">Unknown rating</string>
     <string name="no_status_available">Unknown status</string>
+    <string name="search">Search</string>
 </resources>
