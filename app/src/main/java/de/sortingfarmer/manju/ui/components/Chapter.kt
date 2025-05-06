@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -47,7 +48,7 @@ import androidx.core.net.toUri
 fun ChapterCard(
     chapter: Chapter,
     modifier: Modifier = Modifier,
-    read: Boolean = false,
+    read: Boolean? = null,
     onClick: () -> Unit,
     onReadMarkerClick: (id: UUID?) -> Unit,
     onGroupClick: (id: UUID?) -> Unit,
@@ -72,25 +73,30 @@ fun ChapterCard(
     ) {
         Column {
             Row {
-                VerticalDivider(
-                    modifier = Modifier
-                        .height(iconsize.dp)
-                        .clip(RoundedCornerShape(5.dp)),
-                    thickness = 5.dp,
-                    color = if (read) ManjuThemeExtended.extendedColors.statusGray.color else ManjuThemeExtended.extendedColors.statusBlue.color
-                )
-                Image(
-                    painter = painterResource(
-                        if (read) R.drawable.eye_off_outline else R.drawable.eye_outline
-                    ),
-                    contentDescription = stringResource(
-                        if (read) R.string.chapter_unread else R.string.chapter_read
-                    ),
-                    modifier = Modifier
-                        .size(iconsize.dp)
-                        .padding(2.dp)
-                        .clickable(onClick = { onReadMarkerClick(chapter.id) })
-                )
+                if (read != null) {
+                    VerticalDivider(
+                        modifier = Modifier
+                            .height(iconsize.dp)
+                            .clip(RoundedCornerShape(5.dp)),
+                        thickness = 5.dp,
+                        color = if (read) ManjuThemeExtended.extendedColors.statusGray.color else ManjuThemeExtended.extendedColors.statusBlue.color
+                    )
+
+                    Image(
+                        painter = painterResource(
+                            if (read) R.drawable.eye_off_outline else R.drawable.eye_outline
+                        ),
+                        contentDescription = stringResource(
+                            if (read) R.string.chapter_unread else R.string.chapter_read
+                        ),
+                        modifier = Modifier
+                            .size(iconsize.dp)
+                            .padding(2.dp)
+                            .clickable(onClick = { onReadMarkerClick(chapter.id) })
+                    )
+                } else {
+                    Spacer(modifier = Modifier.size((iconsize/3 ).dp))
+                }
                 if (chapter.attributes?.volume != null) {
                     Text(
                         text = stringResource(R.string.vol, chapter.attributes.volume),
@@ -224,6 +230,21 @@ fun ChapterCard(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ChapterCardNullPreview() {
+    ManjuTheme {
+        ChapterCard(
+            testChapter,
+            read = null,
+            onClick = {},
+            onReadMarkerClick = {},
+            onGroupClick = {},
+            onUserClick = {},
+        )
     }
 }
 
