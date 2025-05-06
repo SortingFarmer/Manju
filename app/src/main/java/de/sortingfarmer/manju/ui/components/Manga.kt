@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -22,6 +23,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -95,10 +100,14 @@ fun MangaImageCard(
                     )
                 }
             )
-
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
+//                Icon(
+//                    painter = painterResource(id = R.drawable[manga.attributes.originalLanguage ?: "en"]),
+//                    contentDescription = stringResource(R.string.rating),
+//                    modifier = Modifier.size(15.dp)
+//                )
                 Text(
                     text = manga.attributes?.title?.get("en")
                         ?: stringResource(R.string.no_title_available),
@@ -120,6 +129,27 @@ fun MangaTextCard(
 ) {
     val context = LocalContext.current
     var statistics by remember { mutableStateOf<GetStatisticsMangaUuid200Response?>(null) }
+    var fullNum by remember { mutableStateOf(true) }
+    var expanded by remember { mutableStateOf(false) }
+    val distribution = statistics?.statistics?.get(manga.id.toString())?.rating?.distribution
+    val ratings = listOf(
+        distribution?._1 ?: 0,
+        distribution?._2 ?: 0,
+        distribution?._3 ?: 0,
+        distribution?._4 ?: 0,
+        distribution?._5 ?: 0,
+        distribution?._6 ?: 0,
+        distribution?._7 ?: 0,
+        distribution?._8 ?: 0,
+        distribution?._9 ?: 0,
+        distribution?._10 ?: 0
+    )
+    var sumRatings = 0
+    ratings.forEach {
+        sumRatings += it
+    }
+
+
 
     LaunchedEffect(key1 = manga.id) {
         statistics = RetrofitClient.instance.create(StatisticsApi::class.java)
@@ -191,7 +221,12 @@ fun MangaTextCard(
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         // Rating
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable {
+                                expanded = !expanded
+                            }
+                        ) {
                             Image(
                                 painter = painterResource(id = R.drawable.star_outline),
                                 contentDescription = stringResource(R.string.rating),
@@ -207,18 +242,55 @@ fun MangaTextCard(
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            ratings.reversed().forEachIndexed { reversedIndex, rating ->
+                                val ratingNumber = ratings.size - reversedIndex
+                                DropdownMenuItem(
+                                    text = {
+                                        LinearProgressIndicator(
+                                            progress = {
+                                                rating.toFloat() / sumRatings.toFloat()
+                                            },
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(10.dp)
+                                        )
+                                    },
+                                    onClick = {},
+                                    enabled = false,
+                                    leadingIcon = { Text("$ratingNumber") },
+                                    modifier = Modifier
+                                        .height(20.dp)
+                                        .width(IntrinsicSize.Min)
+                                )
+                            }
+                        }
+
                         // Follows
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clickable {
+                                fullNum = !fullNum
+                            }
+                        ) {
                             Image(
                                 painter = painterResource(id = R.drawable.bookmark_outline),
                                 contentDescription = stringResource(R.string.follows),
                                 modifier = Modifier.size(15.dp)
                             )
                             Text(
-                                text = formatNumber(
-                                    statistics?.statistics?.get(manga.id.toString())
-                                        ?.follows?.toInt() ?: 0
-                                ),
+                                text = when (fullNum) {
+                                    true -> formatNumber(
+                                        statistics?.statistics?.get(manga.id.toString())
+                                            ?.follows?.toInt() ?: 0
+                                    )
+
+                                    false -> (statistics?.statistics?.get(manga.id.toString())
+                                        ?.follows?.toInt() ?: 0).toString()
+                                },
                                 modifier = Modifier.padding(horizontal = 3.dp, vertical = 1.dp),
                                 style = MaterialTheme.typography.bodyMedium
                             )
@@ -295,8 +367,8 @@ fun MangaTextCard(
                             ) {
                                 Text(
                                     text = manga.attributes?.status?.value?.replaceFirstChar {
-                                    it.uppercase()
-                                } ?: stringResource(R.string.no_status_available),
+                                        it.uppercase()
+                                    } ?: stringResource(R.string.no_status_available),
                                     modifier = Modifier.padding(start = 5.dp, end = 5.dp),
                                     color = statusBasedColor.onColorContainer
                                 )
@@ -317,7 +389,7 @@ fun MangaTextCard(
                                 Text(
                                     text = manga.attributes?.contentRating?.value?.replaceFirstChar {
                                         it.uppercase()
-                                    }?: stringResource(R.string.no_rating_available),
+                                    } ?: stringResource(R.string.no_rating_available),
                                     modifier = Modifier.padding(start = 5.dp, end = 5.dp),
                                     color = ratingBasedColor.onColorContainer
                                 )
@@ -372,7 +444,7 @@ fun TagRow(tags: List<Tag>) {
 @Composable
 fun TagCard(
     tag: Tag,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     val isContentTag = tag.attributes?.group == TagAttributes.Group.content
 
