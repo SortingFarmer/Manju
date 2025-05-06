@@ -104,6 +104,7 @@ paths:
             pattern: ^\d+$
           in: query
           name: offset
+          default: 0
         - schema:
             type: string
           in: query
@@ -975,6 +976,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             type: array
             items:
@@ -1600,6 +1602,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             type: array
             items:
@@ -1717,6 +1720,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             type: array
             items:
@@ -2046,6 +2050,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             type: array
             items:
@@ -2293,6 +2298,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             type: array
             items:
@@ -2544,6 +2550,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             type: array
             items:
@@ -3102,6 +3109,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             $ref: '#/components/schemas/ReferenceExpansionScanlationGroup'
           in: query
@@ -3212,6 +3220,7 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             $ref: '#/components/schemas/ReferenceExpansionManga'
           in: query
@@ -3781,12 +3790,13 @@ paths:
             minimum: 0
           in: query
           name: offset
+          default: 0
         - schema:
             type: string
             enum:
               - manga
               - chapter
-              - scanlation_group
+              - scanlation_group/
               - user
               - author
           in: query
