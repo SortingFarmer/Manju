@@ -1,15 +1,31 @@
 import android.text.format.DateUtils
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -70,6 +86,104 @@ fun DisplayImage(
         }
     }
 }
+
+enum class ChipState { Neutral, Accepted, Denied }
+
+@Composable
+fun TriStateChip(
+    label: String,
+    state: ChipState,
+    onStateChange: (ChipState) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    // Customize the visual appearance based on the state.
+    val backgroundColor = when (state) {
+        ChipState.Neutral -> MaterialTheme.colorScheme.surfaceVariant
+        ChipState.Accepted -> MaterialTheme.colorScheme.primaryContainer
+        ChipState.Denied -> MaterialTheme.colorScheme.errorContainer
+    }
+    val contentColor = when (state) {
+        ChipState.Neutral -> MaterialTheme.colorScheme.onSurfaceVariant
+        else -> MaterialTheme.colorScheme.onPrimaryContainer
+    }
+
+    Surface(
+        color = backgroundColor,
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier.clickable {
+            // Cycle through the states on click.
+            onStateChange(
+                when (state) {
+                    ChipState.Neutral -> ChipState.Accepted
+                    ChipState.Accepted -> ChipState.Denied
+                    ChipState.Denied -> ChipState.Neutral
+                }
+            )
+        }
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (state != ChipState.Neutral) {
+                Icon(
+                    imageVector = when (state) {
+                        ChipState.Accepted -> Icons.Default.Check
+                        ChipState.Denied -> Icons.Default.Close
+                        ChipState.Neutral -> Icons.Default.Info
+                    },
+                    contentDescription = null,
+                    tint = contentColor
+                )
+            }
+            Text(
+                text = label,
+                color = contentColor
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NeutralChipPreview() {
+    var chipState by remember { mutableStateOf(ChipState.Neutral) }
+    TriStateChip(
+        state = chipState,
+        label = "Neutral",
+        onStateChange = {
+            chipState = it
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AcceptedChipPreview() {
+    var chipState by remember { mutableStateOf(ChipState.Accepted) }
+    TriStateChip(
+        state = chipState,
+        label = "Accepted",
+        onStateChange = {
+            chipState = it
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DeniedChipPreview() {
+    var chipState by remember { mutableStateOf(ChipState.Denied) }
+    TriStateChip(
+        state = chipState,
+        label = "Denied",
+        onStateChange = {
+            chipState = it
+        }
+    )
+}
+
 
 fun getRelativeTime(isoString: String): CharSequence {
     val dateTime = OffsetDateTime.parse(isoString)
