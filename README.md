@@ -1,6 +1,6 @@
 # Manju
 
-> [!INFORMATION]
+> [!IMPORTANT]
 > I have given up, any code contained here is free to use :D
 
 An open source application to browse mangadex, build from the ground up to feel like mangadex.
