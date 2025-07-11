@@ -1,5 +1,8 @@
 # Manju
 
+> [!INFORMATION]
+> I have given up, any code contained here is free to use :D
+
 An open source application to browse mangadex, build from the ground up to feel like mangadex.
 If you got any questions, [join our Discord server](https://discord.gg/sk5tBM9nx6).
 
